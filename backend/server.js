@@ -1,4 +1,4 @@
-const mysql2 = require("mysql2");
+const mysql = require("mysql2");
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcryptjs = require("bcryptjs");
@@ -9,7 +9,7 @@ const port = 3000;
 app.use(bodyParser.json());
 
 // MySQL Connection
-const con = mysql2.createConnection({
+const con = mysql.createConnection({
 
   host: "localhost",
   user: "root",
@@ -24,11 +24,3 @@ con.connect(function (err) {
   }
   console.log("Connected!");
 });
-
-app.post('/registers', async(req, res) => {
-  const { username, password } = req.body;
-})
-
-if (!username || !password) {
-  return res.status(400).send('Both username and password are required');
-}
