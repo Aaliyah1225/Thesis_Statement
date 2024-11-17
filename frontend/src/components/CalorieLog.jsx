@@ -3,6 +3,7 @@ import "./CalorieLog.css";
 const Calorie = () => {
   return (
     <div>
+      <h1>Weekly Calorie Tracker</h1>
       <table>
         <caption>Calorie Log Tracker</caption>
         <tr>
