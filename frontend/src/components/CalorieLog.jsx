@@ -1,14 +1,27 @@
 import "./CalorieLog.css";
 
-function Calorie() {
-    return(
-<div>
-    <h1>Breakfast</h1>
-    <h1>Lunch</h1>    
-    <h1>Snacks</h1>
-    <h1>Dinner</h1>
-</div>
-    );
-}
- 
+const Calorie = () => {
+  return (
+    <div>
+      <table>
+        <caption>Calorie Log Tracker</caption>
+        <tr>
+          <th scope="col">Category</th>
+          <th scope="col">Food Item</th>
+          <th scope="col">Calories</th>
+        </tr>
+        <tr>
+          <th scope="row">Breakfast</th>
+        </tr>
+        <tr>
+          <th scope="row">Lunch</th>
+        </tr>
+        <tr>
+          <th scope="row">Dinner</th>
+        </tr>
+      </table>
+    </div>
+  );
+};
+
 export default Calorie;
