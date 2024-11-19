@@ -1,13 +1,18 @@
-import "./CalorieLog.css";
+import "./DailyCalorie.css";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 const Calorie = () => {
+  const [meal, setMeal] = useState ('');
   const [ food, setFood ] = useState('');
   const [ calories, setCalories ] = useState ('');
-  const [ searchResults, setSearchResults] = useState([]);
   const [ totalCalories, setTotalCalories] = useState(0);
   const navigate = useNavigate();
 
+  const addFood = () => {
+    if(!food|calorie) {
+      
+    }
+  }
   
   return (
     <div>
