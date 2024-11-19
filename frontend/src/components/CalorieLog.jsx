@@ -1,6 +1,14 @@
 import "./CalorieLog.css";
-
+import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 const Calorie = () => {
+  const [ food, setFood ] = useState('');
+  const [ calories, setCalories ] = useState ('');
+  const [ searchResults, setSearchResults] = useState([]);
+  const [ totalCalories, setTotalCalories] = useState(0);
+  const navigate = useNavigate();
+
+  
   return (
     <div>
       <h1>Weekly Calorie Tracker</h1>
