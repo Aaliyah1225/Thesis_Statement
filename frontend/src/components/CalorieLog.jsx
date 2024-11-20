@@ -1,13 +1,21 @@
 import "./CalorieLog.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 const Calorie = () => {
-  const [ food, setFood ] = useState('');
-  const [ calories, setCalories ] = useState ('');
+  const [ foods, setFoods ] = useState('');
+  const [ calories, setCalories ] = useState('');
   const [ searchResults, setSearchResults] = useState([]);
   const [ totalCalories, setTotalCalories] = useState(0);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    food()
+  },[])
+
+  const food = async () => {
+    const response = await fetch ('	https://trackapi.nutritionix.com/v2/search/instant')
+    
+  }
   
   return (
     <div>
