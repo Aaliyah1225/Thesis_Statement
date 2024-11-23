@@ -2,7 +2,7 @@ import "./App.css";
 import Homepage from "./components/homepage";
 import Login from "./components/Login";
 import Registers from "./components/Registers";
-import CalorieLog from "./components/CalorieLog";
+import DailyCalorie from "./components/DailyCalorie";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/registers" element={<Registers />} />
-          <Route path="/log" element={<CalorieLog />} />
+          <Route path="/signup" element={<Registers />} />
+          <Route path="/dailycalorie" element={<DailyCalorie />} />
         </Routes>
       </div>
     </Router>
