@@ -25,88 +25,73 @@ const Calorie = () => {
           <th scope="row">Category</th>
           <th scope="col">Food Item</th>
           <th scope="col">Calories</th>
+          <th scope="col">Servings</th>
           <th scope="col">Fats</th>
           <th scope="col">Protein</th>
           <th scope="col">Carbohydrates</th>
+          <th scope="col">Sodium</th>
+          <th scope="col">Sugar</th>
         </tr>
         <tr>
           <th scope="row">Breakfast</th>
           <th scope="col">
             <button>+</button>
           </th>
-          <th scope="col">
-            <select name="calories" id="calories">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="fats" id="fats">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="proteins" id="proteins">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="carbohydrates" id="carbohydrates">
-              <option value="options">Select</option>
-            </select>
-          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
         <tr>
           <th scope="row">Lunch</th>
           <th scope="col">
             <button>+</button>
           </th>
-          <th scope="col">
-            <select name="calories" id="calories">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="fats" id="fats">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="proteins" id="proteins">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="carbohydrates" id="carbohydrates">
-              <option value="options">Select</option>
-            </select>
-          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
         <tr>
           <th scope="row">Dinner</th>
           <th scope="col">
             <button>+</button>
           </th>
-          <th scope="col">
-            <select name="calories" id="calories">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="fats" id="fats">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="proteins" id="proteins">
-              <option value="options">Select</option>
-            </select>
-          </th>
-          <th scope="col">
-            <select name="carbohydrates" id="carbohydrates">
-              <option value="options">Select</option>
-            </select>
-          </th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
+      </table>
+
+
+      <table>
+        <th scope="row">Total</th>
+        <tr>
+        <th scope="row">Daily Goal</th>
+        </tr>
+        <tr>
+        <th scope="row">Remaining Calories</th>
+        </tr>
+       <tr>
+        <th scope="row"></th>
+          <th scope="col">Calories</th>
+          <th scope="col">Servings</th>
+          <th scope="col">Fats</th>
+          <th scope="col">Protein</th>
+          <th scope="col">Carbohydrates</th>
+          <th scope="col">Sodium</th>
+          <th scope="col">Sugar</th>
+       </tr>
       </table>
     </div>
   );
