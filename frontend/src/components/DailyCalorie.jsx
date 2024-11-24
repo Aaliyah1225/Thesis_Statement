@@ -32,9 +32,7 @@ const Calorie = () => {
         <tr>
           <th scope="row">Breakfast</th>
           <th scope="col">
-            <select name="food" id="food">
-              <option value="options">Select</option>
-            </select>
+            <button>+</button>
           </th>
           <th scope="col">
             <select name="calories" id="calories">
@@ -60,9 +58,7 @@ const Calorie = () => {
         <tr>
           <th scope="row">Lunch</th>
           <th scope="col">
-            <select name="food" id="food">
-              <option value="options">Select</option>
-            </select>
+            <button>+</button>
           </th>
           <th scope="col">
             <select name="calories" id="calories">
@@ -88,9 +84,7 @@ const Calorie = () => {
         <tr>
           <th scope="row">Dinner</th>
           <th scope="col">
-            <select name="food" id="food">
-              <option value="options">Select</option>
-            </select>
+            <button>+</button>
           </th>
           <th scope="col">
             <select name="calories" id="calories">
