@@ -13,7 +13,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Registers />} />
-          <Route path="/dailycalorie" element={<DailyCalorie />} />
+          <Route path="/dashboard" element={<DailyCalorie />} />
         </Routes>
       </div>
     </Router>
