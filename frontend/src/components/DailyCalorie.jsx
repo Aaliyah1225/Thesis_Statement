@@ -18,9 +18,7 @@ const Calorie = () => {
 
   return (
     <div>
-      <input type="date">
-      <button>←</button>
-      <button>→</button>
+      <button>←</button><input type="date"><button>→</button>
       </input>
       <h1>Weekly Calorie Tracker</h1>
       <table>
