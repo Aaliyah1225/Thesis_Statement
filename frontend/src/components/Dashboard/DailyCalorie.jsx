@@ -73,6 +73,19 @@ const Calorie = () => {
           <td></td>
           <td></td>
         </tr>
+        <tr>
+          <th scope="row">Snack</th>
+          <td scope="col">
+            <button>+</button>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
         </tbody>
       </table>
 
