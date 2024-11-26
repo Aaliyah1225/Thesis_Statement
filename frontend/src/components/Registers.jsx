@@ -3,11 +3,11 @@ import "./Registers.css";
 function Registers() {
   return (
     <div>
-      <label for="username">
+      <label htmlFor="username">
         <b>Create Username</b>
         <input type="text" placeholder="Enter username" name="username" id="username"></input>
       </label>
-      <label for="password">
+      <label htmlFor="password">
         <b>Create Password</b>
         <input type="text" placeholder="Enter password" name="password" id="password"></input>
         </label>
