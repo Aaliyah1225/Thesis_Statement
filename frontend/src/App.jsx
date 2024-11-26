@@ -6,12 +6,14 @@ import DailyCalorie from "./components/dashboard/DailyCalorie";
 import BreakfastDash from "./components/dashboard/BreakfastDash";
 import LunchDash from "./components/dashboard/LunchDash";
 import DinnerDash from "./components/dashboard/DinnerDash";
+import NavBar from "./components/Navbar/NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
+    <div>
     <Router>
-      <div>
+      <NavBar />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
@@ -21,8 +23,8 @@ function App() {
           <Route path="/dashboard/lunch" element={<LunchDash />} />
           <Route path="/dashboard/dinner" element={<DinnerDash />} />
         </Routes>
-      </div>
     </Router>
+    </div>
   );
 }
 
