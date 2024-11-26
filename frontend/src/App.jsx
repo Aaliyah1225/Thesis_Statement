@@ -2,10 +2,10 @@ import "./App.css";
 import Homepage from "./components/homepage";
 import Login from "./components/Login";
 import Registers from "./components/Registers";
-import DailyCalorie from "./components/Dashboard/DailyCalorie";
-import BreakfastDash from "./components/Dashboard/BreakfastDash";
-import LunchDash from "./components/Dashboard/LunchDash";
-import DinnerDash from "./components/Dashboard/DinnerDash";
+import DailyCalorie from "./components/dashboard/DailyCalorie";
+import BreakfastDash from "./components/dashboard/BreakfastDash";
+import LunchDash from "./components/dashboard/LunchDash";
+import DinnerDash from "./components/dashboard/DinnerDash";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
