@@ -1,5 +1,5 @@
 import "./App.css";
-import Homepage from "./components/homepage";
+import Homepage from "./components/Homepage/homepage";
 import Login from "./components/Login";
 import Registers from "./components/Registers";
 import DailyCalorie from "./components/dashboard/DailyCalorie";
