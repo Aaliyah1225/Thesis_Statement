@@ -1,0 +1,55 @@
+{
+    "foods": [
+        {
+    "id": "1",
+    "food item": "Cheetos",
+    "calories": "196",
+    "fats": "13",
+    "protein": "2",
+    "carbohydrates": "2.5",
+    "sodium": "330",
+    "sugar": "2"
+},
+
+{
+    "id": "2",
+    "food item": "Scrambled Eggs",
+    "calories": "185",
+    "fats": "14",
+    "protein": "14",
+    "carbohydrates": "2",
+    "sodium": "184",
+    "sugar": "0.2"
+},
+{
+    "id": "3",
+    "food item": "French Fries",
+    "calories": "365",
+    "fats": "17",
+    "protein": "4",
+    "carbohydrates": "48",
+    "sodium": "246",
+    "sugar": "0.4"
+},
+{
+    "id": "4",
+    "food item": "Meatloaf",
+    "calories": "331",
+    "fats": "18",
+    "protein": "27",
+    "carbohydrates": "14",
+    "sodium": "844",
+    "sugar": "27"
+},
+{
+    "id": "5",
+    "food item": "Double Cheeseburger",
+    "calories": "762",
+    "fats": "45",
+    "protein": "47",
+    "carbohydrates": "160",
+    "sodium": "1344",
+    "sugar": "9.8"
+}
+    ]
+}
