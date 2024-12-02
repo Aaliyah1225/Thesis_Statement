@@ -4,7 +4,7 @@ const Snack = () => {
     return (
         <div>
            <div className="Search">
-            <label>Search For Lunch</label>
+            <label>Search For Snacks</label>
             <input type="search" placeholder="Search Foods..."/>
             <button>Search</button>
             </div> 

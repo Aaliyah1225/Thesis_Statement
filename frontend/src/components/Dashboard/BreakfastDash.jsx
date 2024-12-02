@@ -8,14 +8,6 @@ const Breakfast = () => {
             <input type="search" placeholder="Search Foods..."/>
             <button>Search</button>
             </div> 
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
         </div>
     );
 }

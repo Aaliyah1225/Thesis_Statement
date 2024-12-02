@@ -1,0 +1,59 @@
+{
+    "foods": [
+      {
+        "id": 1,
+        "food_item": "Apple",
+        "calories": 95,
+        "servings": 1,
+        "fats": 0.3,
+        "protein": 0.5,
+        "carbohydrates": 25,
+        "sodium": 1,
+        "sugar": 19
+      },
+      {
+        "id": 2,
+        "food_item": "Carrot",
+        "calories": 41,
+        "servings": 1,
+        "fats": 0.2,
+        "protein": 0.9,
+        "carbohydrates": 10,
+        "sodium": 42,
+        "sugar": 5
+      },
+      {
+        "id": 3,
+        "food_item": "Rice (cooked)",
+        "calories": 206,
+        "servings": 1,
+        "fats": 0.4,
+        "protein": 4.3,
+        "carbohydrates": 45,
+        "sodium": 1,
+        "sugar": 0.1
+      },
+      {
+        "id": 4,
+        "food_item": "Cheddar Cheese",
+        "calories": 113,
+        "servings": 1,
+        "fats": 9.4,
+        "protein": 7,
+        "carbohydrates": 0.4,
+        "sodium": 174,
+        "sugar": 0.1
+      },
+      {
+        "id": 5,
+        "food_item": "Chicken Breast (cooked)",
+        "calories": 165,
+        "servings": 1,
+        "fats": 3.6,
+        "protein": 31,
+        "carbohydrates": 0,
+        "sodium": 74,
+        "sugar": 0
+      }
+    ]
+  }

@@ -1,20 +1,9 @@
 import "./DailyCalorie.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Calorie = () => {
-  //  const [ foods, setFoods ] = useState('');
-  //   const [ calories, setCalories ] = useState('');
-  //   const [ searchResults, setSearchResults] = useState([]);
-  //   const [ totalCalories, setTotalCalories] = useState(0);
-  //   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     food()
-  //   },[])
-
-  //   const food = async () => {
-  //     const response = await fetch ('https://trackapi.nutritionix.com/v2/search/instant')
-  //   }
 
   return (
     <div>
@@ -37,7 +26,9 @@ const Calorie = () => {
         <tr>
           <th scope="row">Breakfast</th>
           <td>
+            <Link to="/dashboard/breakfast">
             <button>+</button>
+            </Link>
           </td>
           <td></td>
           <td></td>
@@ -50,7 +41,9 @@ const Calorie = () => {
         <tr>
           <th scope="row">Lunch</th>
           <td scope="col">
+          <Link to="/dashboard/lunch">
             <button>+</button>
+            </Link>
           </td>
           <td></td>
           <td></td>
@@ -63,7 +56,9 @@ const Calorie = () => {
         <tr>
           <th scope="row">Dinner</th>
           <td scope="col">
+          <Link to="/dashboard/dinner">
             <button>+</button>
+            </Link>
           </td>
           <td></td>
           <td></td>
@@ -76,7 +71,9 @@ const Calorie = () => {
         <tr>
           <th scope="row">Snack</th>
           <td scope="col">
+          <Link to="/dashboard/snack">
             <button>+</button>
+          </Link>
           </td>
           <td></td>
           <td></td>
