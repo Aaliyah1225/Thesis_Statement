@@ -12,7 +12,7 @@ function Registers() {
         <input type="text" placeholder="Enter password" name="password" id="password"></input>
         </label>
         <p>By creating an account, you have agreed to our<a>Terms and Privacy</a></p>
-        <button type="submit" class="Registration">Register</button>
+        <button type="submit" className="Registration">Register</button>
     </div>
   
 
