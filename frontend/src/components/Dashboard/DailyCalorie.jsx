@@ -1,9 +1,15 @@
 import "./DailyCalorie.css";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const Calorie = () => {
 
+const [foodItem, setFoodItem] = useState("");
+const [calories, setCalories] = useState(0)
+const [fats, setFats] = useState(0);
+const [carbohydrates, setCarbohydrates] = useState(0);
+const [sodium, setSodium] = useState(0);
+const [sugar, setSugar] = useState(0);
+const [servings, setServings] = useState("");
 
   return (
     <div>
@@ -122,12 +128,12 @@ const Calorie = () => {
        <tr>
         <th scope="row"></th>
           <th scope="col">Calories</th>
-          <th scope="col">Servings</th>
           <th scope="col">Fats</th>
           <th scope="col">Protein</th>
           <th scope="col">Carbohydrates</th>
           <th scope="col">Sodium</th>
           <th scope="col">Sugar</th>
+          <th scope="col">Servings</th>
        </tr>
        </tbody>
       </table>
