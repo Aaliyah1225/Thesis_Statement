@@ -1,18 +1,18 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
-const port = 8080;
+const port = 3001;
+require('dotenv').config();
 
 app.use(express.json());
 
-app.post('/api/nutrition',
- async (req, res) => {
+app.post('/nutrition/api', async (req, res) => {
   const { query } = req.body;
-  const apiID = process.env.NUTRITIONIX_API_ID;
-  const apiKey = process.env.NUTRIONIX_API_KEY;
 
   try {
-    const response = await axios.get('https://trackapi.nutritionix.com/v2/natural/nutrients', {
+    const apiID = process.env.NUTRITIONIX_API_ID;
+    const apiKey = process.env.NUTRITIONIX_API_KEY;
+    const response = await fetch.get('https://trackapi.nutritionix.com/v2/natural/nutrients', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ app.post('/api/nutrition',
     });
 
     const data = await response.json();
-    const nutrients = data.foods[0].nutrients;
+    const nutrients = data.foods.nutrients;
 
     res.json(nutrients);
   } catch (error) {

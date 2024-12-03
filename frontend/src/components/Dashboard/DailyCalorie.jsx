@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const Calorie = () => {
 
+
 const [foodItem, setFoodItem] = useState("");
 const [calories, setCalories] = useState(0)
 const [fats, setFats] = useState(0);
