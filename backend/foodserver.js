@@ -9,8 +9,8 @@ app.use(cors());
 const APP_ID = process.env.API_ID;
 const APP_KEY = process.env.API_KEY;
 
-app.get("/search", async (req, res) => {
-  const { query } = req.query;
+app.get("/", async (req, res) => {
+const { query } = req.query;
 
   if (!query) {
     return res.status(400).json({ error: "Query parameter is required." });
@@ -21,7 +21,7 @@ app.get("/search", async (req, res) => {
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
           "x-app-id": APP_ID,
           "x-app-key": APP_KEY,
         },

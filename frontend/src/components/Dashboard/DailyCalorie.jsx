@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const Calorie = () => {
 
-
-const [foodItem, setFoodItem] = useState("");
-const [calories, setCalories] = useState(0)
-const [fats, setFats] = useState(0);
-const [carbohydrates, setCarbohydrates] = useState(0);
-const [sodium, setSodium] = useState(0);
-const [sugar, setSugar] = useState(0);
-const [servings, setServings] = useState("");
+// const [foodItem, setFoodItem] = useState("");
+// const [calories, setCalories] = useState(0)
+// const [fats, setFats] = useState(0);
+// const [carbohydrates, setCarbohydrates] = useState(0);
+// const [sodium, setSodium] = useState(0);
+// const [sugar, setSugar] = useState(0);
+// const [servings, setServings] = useState("");
 
   return (
     <div>
