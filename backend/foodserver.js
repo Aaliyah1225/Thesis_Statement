@@ -1,10 +1,9 @@
 const express = require("express");
 const app = express();
-// const port = 3001;
+const port = 3001;
 const axios = require('axios');
 require("dotenv").config();
 const cors = require("cors");
-const router = express.Router();
 const bodyParser = require('body-parser')
 
 app.use(cors());
@@ -13,7 +12,7 @@ app.use(bodyParser.json());
 const APP_ID = process.env.API_ID;
 const APP_KEY = process.env.API_KEY;
 
-router.post("/get-nutrition", async (req, res) => {
+app.post("/get-nutrition", async (req, res) => {
 const { query } = req.query;
 
   if (!query) {
@@ -41,8 +40,8 @@ const { query } = req.query;
     res.status(500).json({ error: error.message });
   }
 });
-// app.listen(port, () => {
-//   console.log(`Server listening on port http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server listening on port http://localhost:${port}`);
+});
 
 module.exports = router;
