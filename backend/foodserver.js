@@ -17,7 +17,7 @@ app.get("/search", async (req, res) => {
   }
 
   try {
-    const response = await fetch("https://trackapi.nutritionix.com/v2/natural/nutrients",
+    const response = await fetch("https://trackapi.nutritionix.com/v2/search/item",
       {
         method: "GET",
         headers: {
@@ -25,7 +25,7 @@ app.get("/search", async (req, res) => {
           "x-app-id": APP_ID,
           "x-app-key": APP_KEY,
         },
-        body: { query },
+        qs: { query },
       }
     );
 
