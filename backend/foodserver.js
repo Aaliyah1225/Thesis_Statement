@@ -1,45 +1,50 @@
-const express = require("express");
+const express = require('express');
+const axios = require('axios');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
-const port = 3001;
-require("dotenv").config();
-const cors = require("cors");
 
+// Middleware
 app.use(cors());
+app.use(bodyParser.json()); // To parse JSON data
 
-const APP_ID = process.env.API_ID;
-const APP_KEY = process.env.API_KEY;
+// Nutritionix API configuration
+const NUTRITIONIX_API_URL = 'https://api.nutritionix.com/v1_1/search/';
+const NUTRITIONIX_APP_ID = 'YOUR_NUTRITIONIX_APP_ID';  // Replace with your app ID
+const NUTRITIONIX_API_KEY = 'YOUR_NUTRITIONIX_API_KEY';  // Replace with your API key
 
-app.get("/", async (req, res) => {
-const { query } = req.query;
-
-  if (!query) {
-    return res.status(400).json({ error: "Query parameter is required." });
-  }
-
+// Route to search for food via Nutritionix API
+app.get('/api/food/search', async (req, res) => {
+  const query = req.query.query;  // The search query (food item)
   try {
-    const response = await fetch("https://trackapi.nutritionix.com/v2/search/item",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "x-app-id": APP_ID,
-          "x-app-key": APP_KEY,
-        },
-        qs: { query },
-      }
-    );
+    const response = await axios.get(`${NUTRITIONIX_API_URL}${query}`, {
+      params: {
+        appId: NUTRITIONIX_APP_ID,
+        appKey: NUTRITIONIX_API_KEY,
+      },
+    });
 
-    if (!response.ok) {
-      throw new error("Failed to fetch data from Nutritionix");
-    }
-    const data = await response.json();
-    res.json(data);
+    const foodData = response.data.hits.map((hit) => ({
+      name: hit.fields.item_name,
+      calories: hit.fields.nf_calories,
+      serving_size: hit.fields.nf_serving_size_qty,
+      serving_unit: hit.fields.nf_serving_size_unit,
+      fats: hit.fields.nf_total_fat,
+      protein: hit.fields.nf_protein,
+      carbs: hit.fields.nf_total_carbohydrate,
+      sodium: hit.fields.nf_sodium,
+      sugar: hit.fields.nf_sugars,
+    }));
+
+    res.status(200).json(foodData);
   } catch (error) {
-    console.error("Error fetching from Nutritionix:", error);
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching data from Nutritionix', error);
+    res.status(500).json({ message: 'Failed to fetch food data' });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server listening on port http://localhost:${port}`);
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
