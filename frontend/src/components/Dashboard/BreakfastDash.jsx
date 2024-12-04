@@ -6,7 +6,7 @@ const Breakfast = () => {
            <div className="Search">
             <label>Search For Breakfast</label>
             <input type="search" placeholder="Search Foods..."/>
-            <button>Search</button>
+            <button>Add to Dashboard</button>
             </div> 
         </div>
     );
