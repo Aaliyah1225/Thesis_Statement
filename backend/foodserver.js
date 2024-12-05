@@ -15,6 +15,8 @@ const APP_KEY = process.env.API_KEY;
 app.get("/get-nutrition", async (req, res) => {
 const { query } = req.query;
 
+console.log("Received query:", query)
+
   if (!query) {
     return res.status(400).json({ error: "Query parameter is required." });
   }
@@ -27,13 +29,10 @@ const { query } = req.query;
           "x-app-id": APP_ID,
           "x-app-key": APP_KEY,
         },
-        params: {
-          query: query
-        }
-      }
-    );
+        params: { query }
+      });
 
-    if (!response.ok) {
+    if (!response.data) {
       throw new error("Failed to fetch data from Nutritionix");
     }
     res.json(response.data);
@@ -42,6 +41,7 @@ const { query } = req.query;
     res.status(500).json({ error: error.message });
   }
 });
+
 app.listen(port, () => {
-  console.log(`Server listening on port http://localhost:${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
