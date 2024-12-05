@@ -20,10 +20,10 @@ const Dinner = () => {
             Serving Size:
           </label>
           <select id="serving sizes" name="servings sizes">
-          <option value="grams"></option>
-          <option value="cups"></option>
-          <option value="ounces"></option>
-          <option value="slices"></option>
+          <option value="grams">Grams</option>
+          <option value="cups">Cups</option>
+          <option value="ounces">Ounces</option>
+          <option value="slices">Slices</option>
           </select>
         </div>
       </div>
