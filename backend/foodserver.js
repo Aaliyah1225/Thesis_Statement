@@ -9,27 +9,26 @@ const bodyParser = require('body-parser')
 app.use(cors());
 app.use(bodyParser.json());
 
-const APP_ID = process.env.API_ID;
-const APP_KEY = process.env.API_KEY;
+const APP_ID = process.env.NUTRITIONIX_API_ID;
+const APP_KEY = process.env.NUTRITIONIX_API_KEY;
 
 app.get("/get-nutrition", async (req, res) => {
-const { query } = req.query;
+const query = req.query;
 
 console.log("Received query:", query)
-
   if (!query) {
     return res.status(400).json({ error: "Query parameter is required." });
   }
 
   try {
-    const response = await axios.get("https://trackapi.nutritionix.com/v2/natural/nutrients",
+    const response = await axios.get("https://trackapi.nutritionix.com/v2/search/instant",
       {
         headers: {
           "Content-Type": "application/json",
           "x-app-id": APP_ID,
-          "x-app-key": APP_KEY,
+          "x-app-key": APP_KEY
         },
-        params: { query }
+        params: { "query": data }
       });
 
     if (!response.data) {

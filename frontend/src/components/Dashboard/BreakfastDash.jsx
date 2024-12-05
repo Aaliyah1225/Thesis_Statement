@@ -7,7 +7,6 @@ const Breakfast = () => {
   const [servings, setServings] = useState(1);
   const [servingSize, setServingSize] = useState("grams");
   const [nutritionData, setNutritionData] = useState(null);
-  const [error, setError] = useState(null);
   // Handle input changes
   const handleQueryChanges = (e) => setQuery(e.target.value);
   const handleServingsChanges = (e) => setServings(e.target.value);
@@ -65,14 +64,6 @@ const Breakfast = () => {
           </select>
         </div>
         <button>Add</button>
-        {/*Display nutrition data or errors*/}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      {nutritionData && (
-        <div>
-          <h3>Nutrition Information</h3>
-          <pre>{JSON.stringify(nutritionData, null, 2)}</pre>
-          </div>
-          )}
       </div>
     );
 }
