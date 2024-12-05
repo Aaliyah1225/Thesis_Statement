@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 const APP_ID = process.env.API_ID;
 const APP_KEY = process.env.API_KEY;
 
-app.post("/get-nutrition", async (req, res) => {
+app.get("/get-nutrition", async (req, res) => {
 const { query } = req.query;
 
   if (!query) {
@@ -20,14 +20,16 @@ const { query } = req.query;
   }
 
   try {
-    const response = await axios.post(`https://trackapi.nutritionix.com/v2/natural/nutrients${query}`,
-      { query: foodItem },
+    const response = await axios.get("https://trackapi.nutritionix.com/v2/natural/nutrients",
       {
         headers: {
           "Content-Type": "application/json",
           "x-app-id": APP_ID,
           "x-app-key": APP_KEY,
         },
+        params: {
+          query: query
+        }
       }
     );
 
@@ -43,5 +45,3 @@ const { query } = req.query;
 app.listen(port, () => {
   console.log(`Server listening on port http://localhost:${port}`);
 });
-
-module.exports = router;
