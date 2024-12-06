@@ -2,10 +2,11 @@ import "./DinnerDash.css";
 
 const Dinner = () => {
   return (
-    <div>
-      <div className="Add">
-        <label>Search For Dinner</label>
-        <input type="search" placeholder="Add Foods..." />
+    <form action="http://localhost:5173/dashboard" method="get" class="dinner-form">
+      <div className="search-dinner">
+        <label for="search">Search For Dinner</label>
+        <input type="search" placeholder="Search Foods..." />
+        
         <div class="serving">
           <label htmlFor="servings">Servings:</label>
           <input
@@ -13,6 +14,7 @@ const Dinner = () => {
             id="servings"
             min="1"
             placeholder="Enter servings number"
+            required
           />
         </div>
         <div class="serving-size box">
@@ -20,6 +22,7 @@ const Dinner = () => {
             Serving Size:
           </label>
           <select id="serving sizes" name="servings sizes">
+          <option value="select">Select...</option>
           <option value="grams">Grams</option>
           <option value="cups">Cups</option>
           <option value="ounces">Ounces</option>
@@ -27,8 +30,8 @@ const Dinner = () => {
           </select>
         </div>
       </div>
-      <button>Add</button>
-    </div>
+      <input type="submit" value="Add" />
+    </form>
   );
 };
 

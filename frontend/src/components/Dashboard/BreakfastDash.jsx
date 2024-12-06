@@ -2,11 +2,11 @@ import "./BreakfastDash.css";
 
 const Breakfast = () => {
   return (
-    <div>
-      <div className="Search">
-        <label>Search For Breakfast</label>
+    <form action="http://localhost:5173/dashboard" method="get" class="breakfast-form">
+      <div className="search-breakfast">
+        <label for="search">Search For Breakfast</label>
         <input type="search" placeholder="Search Foods..." />
-        <button>Search</button>
+        
         <div class="serving">
           <label htmlFor="servings">Servings:</label>
           <input
@@ -14,6 +14,7 @@ const Breakfast = () => {
             id="servings"
             min="1"
             placeholder="Enter servings number"
+            required
           />
         </div>
         <div class="serving-size box">
@@ -21,6 +22,7 @@ const Breakfast = () => {
             Serving Size:
           </label>
           <select id="serving sizes" name="servings sizes">
+          <option value="select">Select...</option>
           <option value="grams">Grams</option>
           <option value="cups">Cups</option>
           <option value="ounces">Ounces</option>
@@ -28,8 +30,8 @@ const Breakfast = () => {
           </select>
         </div>
       </div>
-      <button>Add</button>
-    </div>
+      <input type="submit" value="Add" />
+    </form>
   );
 };
 

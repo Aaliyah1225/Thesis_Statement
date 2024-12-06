@@ -2,11 +2,11 @@ import "./LunchDash.css";
 
 const Lunch = () => {
   return (
-    <div>
-      <div className="Search">
-        <label>Search For Lunch</label>
+    <form action="http://localhost:5173/dashboard" method="get" class="lunch-form">
+      <div className="search-lunch">
+        <label for="search">Search For Lunch</label>
         <input type="search" placeholder="Search Foods..." />
-        <button>Search</button>
+        
         <div class="serving">
           <label htmlFor="servings">Servings:</label>
           <input
@@ -14,6 +14,7 @@ const Lunch = () => {
             id="servings"
             min="1"
             placeholder="Enter servings number"
+            required
           />
         </div>
         <div class="serving-size box">
@@ -21,6 +22,7 @@ const Lunch = () => {
             Serving Size:
           </label>
           <select id="serving sizes" name="servings sizes">
+          <option value="select">Select...</option>
           <option value="grams">Grams</option>
           <option value="cups">Cups</option>
           <option value="ounces">Ounces</option>
@@ -28,8 +30,8 @@ const Lunch = () => {
           </select>
         </div>
       </div>
-      <button>Add</button>
-    </div>
+      <input type="submit" value="Add" />
+    </form>
   );
 };
 
