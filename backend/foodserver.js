@@ -4,7 +4,6 @@ const port = 3001;
 const axios = require('axios');
 require("dotenv").config();
 const cors = require("cors");
-// const bodyParser = require('body-parser')
 
 app.use(cors());
 app.use(express.json());
@@ -23,13 +22,12 @@ console.log("Received query:", query)
     const response = await axios.get("https://trackapi.nutritionix.com/v2/search/instant",
       {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
           "x-app-id": APP_ID,
           "x-app-key": APP_KEY
         },
-        params: { query }
+        params: { query: "apple" }
       });
-
       if (!response.data) {
         throw new error("Failed to fetch data from Nutritionix");
       }

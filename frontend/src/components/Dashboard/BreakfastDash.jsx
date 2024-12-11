@@ -1,6 +1,11 @@
 import "./BreakfastDash.css";
+import React, { useState } from 'react';
 
 const Breakfast = () => {
+
+  const [search, setSearch] = useState("");
+  const [servings, setSevings] = useState(1);
+  const [servingSize, setServingSize] = useState('select')
   return (
     <form action="http://localhost:5173/dashboard" method="get" class="breakfast-form">
       <div className="search-breakfast">
