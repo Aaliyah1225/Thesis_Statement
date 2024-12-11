@@ -1,15 +1,27 @@
 import "./DailyCalorie.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Calorie = () => {
+  const [nutritionData, setNutritionData] = useState({
+    Breakfast: [],
+    Lunch: [],
+    Dinner: [],
+    Snack: [],
 
-// const [foodItem, setFoodItem] = useState("");
-// const [calories, setCalories] = useState(0)
-// const [fats, setFats] = useState(0);
-// const [carbohydrates, setCarbohydrates] = useState(0);
-// const [sodium, setSodium] = useState(0);
-// const [sugar, setSugar] = useState(0);
-// const [servings, setServings] = useState("");
+});
+
+  useEffect(() => {
+    const fetchNutritionData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/nutrition');
+        setNutritionData(response.data);
+      } catch (error) {
+        console.error('Error fetching nutrition data:', error);
+      }
+    };
+    fetchNutritionData();
+    }, []);
 
   return (
     <div>
@@ -17,7 +29,7 @@ const Calorie = () => {
       <h1>Weekly Calorie Tracker</h1>
       <table>
         <caption>Calorie Log Tracker</caption>
-        <tbody>
+        <thead>
         <tr>
           <th scope="row">Category</th>
           <th scope="col">Food Item</th>
@@ -29,6 +41,8 @@ const Calorie = () => {
           <th scope="col">Sodium</th>
           <th scope="col">Sugar</th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
           <th scope="row">Breakfast</th>
           <td>
@@ -36,14 +50,15 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].calories}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].servings}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].fat}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].protein}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].carbs}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].sodium}</td>
+            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].sugar}</td>
         </tr>
+
         <tr>
           <th scope="row">Lunch</th>
           <td scope="col">
@@ -51,14 +66,15 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].calories}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].servings}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].fat}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].protein}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].carbs}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].sodium}</td>
+            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].sugar}</td>
         </tr>
+
         <tr>
           <th scope="row">Dinner</th>
           <td scope="col">
@@ -66,14 +82,15 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].calories}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].servings}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].fat}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].protein}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].carbs}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].sodium}</td>
+            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].sugar}</td>
         </tr>
+
         <tr>
           <th scope="row">Snack</th>
           <td scope="col">
@@ -81,13 +98,13 @@ const Calorie = () => {
             <button>+</button>
           </Link>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].calories}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].servings}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].fat}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].protein}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].carbs}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].sodium}</td>
+            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].sugar}</td>
         </tr>
         </tbody>
       </table>

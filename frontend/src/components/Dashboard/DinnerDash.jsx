@@ -1,18 +1,63 @@
 import "./DinnerDash.css";
+import React, { useState } from 'react';
 
 const Dinner = () => {
+  const [search, setSearch] = useState('');
+  const [servings, setServings] = useState(1);
+  const [servingSize, setServingSize] = useState('select');
+  const [foodData, setFoodData] = useState(null);
+  const [mealCategory, setMealCategory] = useState('Dinner'); 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await axios.get(`http://localhost:3001/search?query=${search}`);
+        const firstMatch = response.data;
+        setFoodData(firstMatch);
+    } catch (error) {
+      console.error('Error fetching food data:', error);
+    }
+  };
+
+  const handleAddFood = async (e) => {
+    e.preventDefault();
+
+    if (!foodData) return;
+
+    try {
+      const response = await axios.post('http://localhost:3001/nutrition', {
+        foodItem: foodData.food_name,
+        servings: servings,
+        servingSize: servingSize,
+        mealCategory: mealCategory,
+      });
+
+      console.log(response.data);
+
+    } catch (error) {
+      console.error('Error fetching nutrition info:', error);
+    }
+  };
+  
   return (
-    <form action="http://localhost:5173/dashboard" method="get" class="dinner-form">
+    <form submit={handleSearch} className="dinner-form">
       <div className="search-dinner">
         <label for="search">Search For Dinner</label>
-        <input type="search" placeholder="Search Foods..." />
+        <input 
+        type="search" 
+        placeholder="Search Foods..." 
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        />
         
-        <div class="serving">
+        <div className="serving">
           <label htmlFor="servings">Servings:</label>
           <input
             type="number"
             id="servings"
             min="1"
+            value={servings}
+            onChange={(e) => setServings(e.target.value)}
             placeholder="Enter servings number"
             required
           />
@@ -21,16 +66,41 @@ const Dinner = () => {
           <label htmlFor="serving-size" name="serving-size">
             Serving Size:
           </label>
-          <select id="serving sizes" name="servings sizes">
+          <select 
+          id="serving sizes" 
+          value={servingSize}
+          onChange={(e) = setServingSize(e.target.value)}
+          name="servings sizes">
           <option value="select">Select...</option>
-          <option value="grams">Grams</option>
-          <option value="cups">Cups</option>
-          <option value="ounces">Ounces</option>
-          <option value="slices">Slices</option>
+          <option value="grams"></option>
+          <option value="cups"></option>
+          <option value="ounces"></option>
+          <option value="slices"></option>
           </select>
         </div>
+
+        <div className="meal-category">
+          <label htmlFor="meal-category">Select Meal Category:</label>
+          <select
+            id="meal-category"
+            value={mealCategory}
+            onChange={(e) => setMealCategory(e.target.value)}
+          >
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Snack">Snack</option>
+          </select>
+        </div>
+        
+        <button type="submit">Search</button>
+        {foodData && (
+          <div>
+            <h3>Food: {foodData.food_name}</h3>
+            <button onClick={handleAddFood}>Add to Daily Log</button>
+            </div>
+        )}
       </div>
-      <input type="submit" value="Add" />
     </form>
   );
 };
