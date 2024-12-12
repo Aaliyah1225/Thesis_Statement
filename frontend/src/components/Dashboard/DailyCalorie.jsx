@@ -50,15 +50,20 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].calories}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].servings}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].fat}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].protein}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].carbs}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].sodium}</td>
-            <td>{nutritionData.Breakfast.length > 0 && nutritionData.Breakfast[0].sugar}</td>
-        </tr>
+          {nutritionData.Breakfast.map((food, index) => (
+              <tr key={index}>
 
+                <td>{food.food_name}</td>
+                <td>{food.calories}</td>
+                <td>{food.servings}</td>
+                <td>{food.fat}</td>
+                <td>{food.protein}</td>
+                <td>{food.carbs}</td>
+                <td>{food.sodium}</td>
+                <td>{food.sugar}</td>
+        </tr>
+          ))}
+          </tr>
         <tr>
           <th scope="row">Lunch</th>
           <td scope="col">
@@ -66,15 +71,19 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-          <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].calories}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].servings}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].fat}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].protein}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].carbs}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].sodium}</td>
-            <td>{nutritionData.Lunch.length > 0 && nutritionData.Lunch[0].sugar}</td>
+          {nutritionData.Lunch.map((food, index) => (
+              <tr key={index}>
+          <td>{food.food_name}</td>
+                <td>{food.calories}</td>
+                <td>{food.servings}</td>
+                <td>{food.fat}</td>
+                <td>{food.protein}</td>
+                <td>{food.carbs}</td>
+                <td>{food.sodium}</td>
+                <td>{food.sugar}</td>
         </tr>
-
+          ))}
+          </tr>
         <tr>
           <th scope="row">Dinner</th>
           <td scope="col">
@@ -82,14 +91,19 @@ const Calorie = () => {
             <button>+</button>
             </Link>
           </td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].calories}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].servings}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].fat}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].protein}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].carbs}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].sodium}</td>
-            <td>{nutritionData.Dinner.length > 0 && nutritionData.Dinner[0].sugar}</td>
+          {nutritionData.Dinner.map((food, index) => (
+              <tr key={index}>
+          <td>{food.food_name}</td>
+                <td>{food.calories}</td>
+                <td>{food.servings}</td>
+                <td>{food.fat}</td>
+                <td>{food.protein}</td>
+                <td>{food.carbs}</td>
+                <td>{food.sodium}</td>
+                <td>{food.sugar}</td>
         </tr>
+          ))}
+          </tr>
 
         <tr>
           <th scope="row">Snack</th>
@@ -98,14 +112,19 @@ const Calorie = () => {
             <button>+</button>
           </Link>
           </td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].calories}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].servings}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].fat}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].protein}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].carbs}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].sodium}</td>
-            <td>{nutritionData.Snack.length > 0 && nutritionData.Snack[0].sugar}</td>
+          {nutritionData.Snack.map((food, index) => (
+              <tr key={index}>
+                <td>{food.food_name}</td>
+                <td>{food.calories}</td>
+                <td>{food.servings}</td>
+                <td>{food.fat}</td>
+                <td>{food.protein}</td>
+                <td>{food.carbs}</td>
+                <td>{food.sodium}</td>
+                <td>{food.sugar}</td>
         </tr>
+         ))}
+          </tr>
         </tbody>
       </table>
 

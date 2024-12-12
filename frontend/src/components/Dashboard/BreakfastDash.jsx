@@ -6,9 +6,8 @@ const Breakfast = () => {
   const [search, setSearch] = useState("");
   const [servings, setServings] = useState(1);
   const [servingSize, setServingSize] = useState('select')
-  const [foodData, setFoodData] = useState(null);
-  const [mealCategory, setMealCategory] = useState('Breakfast'); 
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedFood, setSelectedFood] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -21,102 +20,99 @@ const Breakfast = () => {
     }
   };
 
-  const handleAddFood = async (foodItem) => {
+  const handleFoodSelect = async (foodItem) => {
+    setSelectedFood(foodItem.food_name); // Set the selected food name
+  };
+  const handleAddFood = async () => {
+    if (!selectedFood || servings <= 0 || servingSize === 'select') {
+      alert('Please select a valid food, servings, and serving size.');
+      return; 
+    }
     try {
       const response = await axios.post('http://localhost:3001/nutrition', {
-        foodItem: foodData.food_name,
+        foodItem: selectedFood,
         servings: servings,
         servingSize: servingSize,
-        mealCategory: mealCategory,
+        mealCategory: 'Breakfast',
       });
 
-      console.log(response.data);
-      setFoodData(foodItem);
-      setSearchResults([]);
+      const nutritionData = response.data;
+
+      // Update the parent component's nutrition state (i.e., the calorie log) with the new food
+      setNutritionData((prevState) => ({
+        ...prevState,
+        Breakfast: [...prevState.Breakfast, nutritionData] // Add the new food to the Breakfast section
+      }));
+
+      setSearchResults([]); // Clear the search results after selection
 
     } catch (error) {
-      console.error('Error fetching nutrition info:', error);
+      console.error('Error fetching nutrition data:', error);
     }
   };
   return (
-    <form onSubmit={handleSearch} className="breakfast-form">
-      <div className="search-breakfast">
-        <label htmlFor="search">Search For Breakfast</label>
+    <div className="breakfast-form">
+      <form onSubmit={handleSearch}>
         <input 
-        type="search" 
-        placeholder="Search Foods..." 
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+          type="search" 
+          placeholder="Search Foods..." 
+          value={search}
+          onChange={(e) => setSearch(e.target.value)} 
         />
-        
-        <div className="serving">
-          <label htmlFor="servings">Servings:</label>
-          <input
-            type="number"
-            id="servings"
-            min="1"
-            value={servings}
-            onChange={(e) => setServings(e.target.value)}
-            placeholder="Enter servings number"
-            required
-          />
-        </div>
-        <div className="serving-size box">
-          <label htmlFor="serving-size" name="serving-size">
-            Serving Size:
-          </label>
-          <select 
-          id="serving sizes" 
+        <button type="submit">Search</button>
+      </form>
+      
+      <div className="serving">
+        <label htmlFor="servings">Servings:</label>
+        <input
+          type="number"
+          id="servings"
+          min="1"
+          value={servings}
+          onChange={(e) => setServings(Number(e.target.value))} // Update servings
+          placeholder="Enter servings number"
+          required
+        />
+      </div>
+      
+      <div className="serving-size box">
+        <label htmlFor="serving-size">Serving Size:</label>
+        <select
+          id="serving-size"
           value={servingSize}
-          onChange={(e) => setServingSize(e.target.value)}
-          name="servings sizes">
+          onChange={(e) => setServingSize(e.target.value)} // Update serving size
+        >
           <option value="select">Select...</option>
           <option value="grams">Grams</option>
           <option value="cups">Cups</option>
           <option value="ounces">Ounces</option>
           <option value="slices">Slices</option>
-          </select>
-        </div>
-
-        <div className="meal-category">
-          <label htmlFor="meal-category">Select Meal Category:</label>
-          <select
-            id="meal-category"
-            value={mealCategory}
-            onChange={(e) => setMealCategory(e.target.value)}
-          >
-            <option value="Breakfast">Breakfast</option>
-            <option value="Lunch">Lunch</option>
-            <option value="Dinner">Dinner</option>
-            <option value="Snack">Snack</option>
-          </select>
-        </div>
-        
-        <button type="submit">Search</button>
-
-        {searchResults.length > 0 && (
-          <div className="search-results">
-            <h3>Select a Food</h3>
-            <ul>
-              {searchResults.map((foodItem, index) => (
-                <li key={index}>
-                  <button onClick={() => handleFoodSelect(foodItem)}>
-                    {foodItem.food_name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {foodData && (
-          <div>
-            <h3>Food: {foodData.food_name}</h3>
-            <button onClick={handleAddFood}>Add to Daily Log</button>
-            </div>
-        )}
+        </select>
       </div>
-    </form>
+      {searchResults.length > 0 && (
+        <div className="food-selection">
+          <label htmlFor="food-selection">Select a Food</label>
+          <input 
+            type="text" 
+            id="food-selection"
+            value={selectedFood}
+            onChange={(e) => setSelectedFood(e.target.value)} // Allow editing in the textbox
+            placeholder="Start typing to search..." 
+          />
+          <ul className="food-dropdown">
+            {searchResults.map((foodItem, index) => (
+              <li key={index}>
+                <button onClick={() => handleFoodSelect(foodItem)}>
+                  {foodItem.food_name}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <button onClick={handleAddFood}>Add to Daily Log</button>
+    </div>
   );
 };
 

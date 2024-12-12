@@ -5,7 +5,11 @@ const axios = require('axios');
 require("dotenv").config();
 const cors = require("cors");
 
-app.use(cors());
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST'],
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const APP_ID = process.env.NUTRITIONIX_API_ID;
@@ -59,8 +63,8 @@ console.log("Received query:", query);
   });
   
   app.post("/nutrition", async (req, res) => {
-    const { foodItem, servings, servingsSize } = req.body;
-    console.log("Received params", params)
+    const { foodItem, servings, servingSize, mealCategory } = req.body;
+    console.log("Received params", req.body)
     if (!params) {
       return res.status(400).json({ error: "Food ID Parameter is required" });
      }
@@ -70,15 +74,22 @@ console.log("Received query:", query);
     });
 
     const foodData = response.data.foods[0];
-    mealData[mealCategory].push({
-      foodItem: foodData.food_name,
-      calories: foodData.nf_calories,
-      carbs: foodData.nf_total_carbohydrate,
-      protein: foodData.nf_protein,
-      fat: foodData.nf_total_fat,
-      sugar: foodData.nf_dietary_sugar,
-      servingSize: `${foodData.serving_qty} ${foodData.serving_unit}`,
-    });
+
+    const adjustedNutrition = {
+      food_name: foodData.food_name,
+      calories: foodData.nf_calories * servings, // Multiply by servings
+      carbs: foodData.nf_total_carbohydrate * servings,
+      protein: foodData.nf_protein * servings,
+      fat: foodData.nf_total_fat * servings,
+      sugar: foodData.nf_dietary_sugar * servings,
+      sodium: foodData.nf_sodium * servings,
+      servingSize: servingSize,
+      servings: servings,
+      meal_category: mealCategory,
+    };
+
+    res.json(adjustedNutrition);
+
    } catch (error) {
       console.error('Error fetching nutritional data:', error);
       res.status(500).json({ error: 'Failed to fetch nutritional data' });
