@@ -1,6 +1,6 @@
 import "./BreakfastDash.css";
 import React, { useState } from 'react';
-
+import axios from 'axios';
 const Breakfast = () => {
 
   const [search, setSearch] = useState("");
@@ -8,24 +8,20 @@ const Breakfast = () => {
   const [servingSize, setServingSize] = useState('select')
   const [foodData, setFoodData] = useState(null);
   const [mealCategory, setMealCategory] = useState('Breakfast'); 
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.get(`http://localhost:3001/search?query=${search}`);
-        const firstMatch = response.data;
-        setFoodData(firstMatch);
+        const response = await axios.get(`http://localhost:3001/search-nutrition?query=${search}`);
+        setSearchResults(response.data);
     } catch (error) {
       console.error('Error fetching food data:', error);
     }
   };
 
-  const handleAddFood = async (e) => {
-    e.preventDefault();
-
-    if (!foodData) return;
-
+  const handleAddFood = async (foodItem) => {
     try {
       const response = await axios.post('http://localhost:3001/nutrition', {
         foodItem: foodData.food_name,
@@ -35,15 +31,17 @@ const Breakfast = () => {
       });
 
       console.log(response.data);
+      setFoodData(foodItem);
+      setSearchResults([]);
 
     } catch (error) {
       console.error('Error fetching nutrition info:', error);
     }
   };
   return (
-    <form submit={handleSearch} className="breakfast-form">
+    <form onSubmit={handleSearch} className="breakfast-form">
       <div className="search-breakfast">
-        <label for="search">Search For Breakfast</label>
+        <label htmlFor="search">Search For Breakfast</label>
         <input 
         type="search" 
         placeholder="Search Foods..." 
@@ -63,20 +61,20 @@ const Breakfast = () => {
             required
           />
         </div>
-        <div class="serving-size box">
+        <div className="serving-size box">
           <label htmlFor="serving-size" name="serving-size">
             Serving Size:
           </label>
           <select 
           id="serving sizes" 
           value={servingSize}
-          onChange={(e) = setServingSize(e.target.value)}
+          onChange={(e) => setServingSize(e.target.value)}
           name="servings sizes">
           <option value="select">Select...</option>
-          <option value="grams"></option>
-          <option value="cups"></option>
-          <option value="ounces"></option>
-          <option value="slices"></option>
+          <option value="grams">Grams</option>
+          <option value="cups">Cups</option>
+          <option value="ounces">Ounces</option>
+          <option value="slices">Slices</option>
           </select>
         </div>
 
@@ -95,6 +93,22 @@ const Breakfast = () => {
         </div>
         
         <button type="submit">Search</button>
+
+        {searchResults.length > 0 && (
+          <div className="search-results">
+            <h3>Select a Food</h3>
+            <ul>
+              {searchResults.map((foodItem, index) => (
+                <li key={index}>
+                  <button onClick={() => handleFoodSelect(foodItem)}>
+                    {foodItem.food_name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {foodData && (
           <div>
             <h3>Food: {foodData.food_name}</h3>

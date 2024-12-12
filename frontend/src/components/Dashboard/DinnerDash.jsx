@@ -1,5 +1,6 @@
 import "./DinnerDash.css";
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Dinner = () => {
   const [search, setSearch] = useState('');
@@ -11,7 +12,7 @@ const Dinner = () => {
     e.preventDefault();
 
     try {
-        const response = await axios.get(`http://localhost:3001/search?query=${search}`);
+        const response = await axios.get(`http://localhost:3001/search-nutrition?query=${search}`);
         const firstMatch = response.data;
         setFoodData(firstMatch);
     } catch (error) {
@@ -40,9 +41,9 @@ const Dinner = () => {
   };
   
   return (
-    <form submit={handleSearch} className="dinner-form">
+    <form onSubmit={handleSearch} className="dinner-form">
       <div className="search-dinner">
-        <label for="search">Search For Dinner</label>
+        <label htmlFor="search">Search For Dinner</label>
         <input 
         type="search" 
         placeholder="Search Foods..." 
@@ -62,7 +63,7 @@ const Dinner = () => {
             required
           />
         </div>
-        <div class="serving-size box">
+        <div className="serving-size box">
           <label htmlFor="serving-size" name="serving-size">
             Serving Size:
           </label>
