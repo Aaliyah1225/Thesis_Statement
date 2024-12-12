@@ -8,6 +8,8 @@ const cors = require("cors");
 const corsOptions = {
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  creditials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -63,16 +65,20 @@ console.log("Received query:", query);
   });
   
   app.post("/nutrition", async (req, res) => {
-    const { foodItem, servings, servingSize, mealCategory } = req.body;
-    console.log("Received params", req.body)
-    if (!params) {
+    const { foodItem, servings, servingUnit, mealCategory } = req.body;
+    console.log("Received params", req.body);
+      if (!foodItem || !servings || !servingUnit || !mealCategory) {
       return res.status(400).json({ error: "Food ID Parameter is required" });
      }
     try {
-      const response = await axios.get('natural/nutrients', {
-        query: `${foodItem} ${servings} ${servingSize}`,
+      const response = await axios.post('natural/nutrients', {
+        query: `${foodItem} ${servings} ${servingUnit}`,
     });
 
+    if (!response.data || !response.data.foods || response.data.foods.length === 0) {
+      return res.status(404).json({ error: 'No food data returned from Nutritionix API' });
+    }
+    
     const foodData = response.data.foods[0];
 
     const adjustedNutrition = {
@@ -81,10 +87,11 @@ console.log("Received query:", query);
       carbs: foodData.nf_total_carbohydrate * servings,
       protein: foodData.nf_protein * servings,
       fat: foodData.nf_total_fat * servings,
-      sugar: foodData.nf_dietary_sugar * servings,
+      sugar: foodData.nf_sugars * servings,
       sodium: foodData.nf_sodium * servings,
-      servingSize: servingSize,
-      servings: servings,
+      servingSize: foodData.serving_weight_grams,
+      servings: foodData.serving_qty,
+      servingUnit: foodData.serving_unit,
       meal_category: mealCategory,
     };
 

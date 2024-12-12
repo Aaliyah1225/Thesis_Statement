@@ -5,7 +5,7 @@ const Breakfast = () => {
 
   const [search, setSearch] = useState("");
   const [servings, setServings] = useState(1);
-  const [servingSize, setServingSize] = useState('select')
+  const [servingUnit, setServingUnit] = useState("")
   const [searchResults, setSearchResults] = useState([]);
   const [selectedFood, setSelectedFood] = useState("");
 
@@ -15,24 +15,31 @@ const Breakfast = () => {
     try {
         const response = await axios.get(`http://localhost:3001/search-nutrition?query=${search}`);
         setSearchResults(response.data);
-    } catch (error) {
-      console.error('Error fetching food data:', error);
-    }
-  };
+      } catch (error) {
+        console.error('Error fetching food data:', error);
+      }
+    };
 
-  const handleFoodSelect = async (foodItem) => {
+  const handleFoodSelect = (foodItem) => {
+    if (foodItem && foodItem.serving_qty) {
     setSelectedFood(foodItem.food_name); // Set the selected food name
-  };
-  const handleAddFood = async () => {
-    if (!selectedFood || servings <= 0 || servingSize === 'select') {
-      alert('Please select a valid food, servings, and serving size.');
+    setServingUnit(Array.isArray(foodItem.serving_unit) ? foodItem.serving_unit : [foodItem.serving_unit]);
+    setServings(servings.serving_qty);
+  } else {
+    alert("Please select a valid food item.");
+  }
+};
+  const handleAddFood = async () => { 
+    
+    if (!selectedFood || selectedFood === "" || servingUnit === 'select' || servingUnit === "") {
+      alert('Please select a valid food and serving unit.');
       return; 
     }
     try {
       const response = await axios.post('http://localhost:3001/nutrition', {
         foodItem: selectedFood,
         servings: servings,
-        servingSize: servingSize,
+        servingUnit: servingUnit,
         mealCategory: 'Breakfast',
       });
 
@@ -44,8 +51,10 @@ const Breakfast = () => {
         Breakfast: [...prevState.Breakfast, nutritionData] // Add the new food to the Breakfast section
       }));
 
-      setSearchResults([]); // Clear the search results after selection
-
+      setSearchResults([]); 
+      setSelectedFood('');
+      setServings(1);
+      setServingUnit([]);
     } catch (error) {
       console.error('Error fetching nutrition data:', error);
     }
@@ -60,7 +69,6 @@ const Breakfast = () => {
           onChange={(e) => setSearch(e.target.value)} 
         />
         <button type="submit">Search</button>
-      </form>
       
       <div className="serving">
         <label htmlFor="servings">Servings:</label>
@@ -68,50 +76,50 @@ const Breakfast = () => {
           type="number"
           id="servings"
           min="1"
-          value={servings}
-          onChange={(e) => setServings(Number(e.target.value))} // Update servings
+          value={servings.serving_qty}
+          onChange={(e) => setServings(Number(e.target.value))}
           placeholder="Enter servings number"
           required
         />
       </div>
       
-      <div className="serving-size box">
-        <label htmlFor="serving-size">Serving Size:</label>
+      <div className="serving-unit">
+        <label htmlFor="serving-unit">Serving Unit:</label>
         <select
-          id="serving-size"
-          value={servingSize}
-          onChange={(e) => setServingSize(e.target.value)} // Update serving size
+          id="serving-unit"
+          value={servingUnit}
+          onChange={(e) => handleFoodSelect(searchResults.find(servingunit => servingunit.serving_unit === e.target.value))}
         >
-          <option value="select">Select...</option>
-          <option value="grams">Grams</option>
-          <option value="cups">Cups</option>
-          <option value="ounces">Ounces</option>
-          <option value="slices">Slices</option>
+          <option value="select">Select a unit</option>
+            {searchResults.map((servingUnitItem, index) => (
+          <option key={`unit-${servingUnitItem.serving_unit}-${index}`} value={servingUnit.serving_unit}>
+            {servingUnitItem.serving_unit}
+              </option>
+            ))}
+            <option disabled>No serving units available</option>
         </select>
       </div>
-      {searchResults.length > 0 && (
+
         <div className="food-selection">
-          <label htmlFor="food-selection">Select a Food</label>
-          <input 
-            type="text" 
-            id="food-selection"
-            value={selectedFood}
-            onChange={(e) => setSelectedFood(e.target.value)} // Allow editing in the textbox
-            placeholder="Start typing to search..." 
-          />
-          <ul className="food-dropdown">
-            {searchResults.map((foodItem, index) => (
-              <li key={index}>
-                <button onClick={() => handleFoodSelect(foodItem)}>
-                  {foodItem.food_name}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        <label htmlFor="food-selection">Select a Food</label>
+        <select
+        id="food-selection-dropdown"
+        aria-label="Select a food item"
+        value={selectedFood}
+        onChange={(e) => handleFoodSelect(searchResults.find(food => food.food_name === e.target.value))}
+        >
+        <option value="select">Select a food</option>
+        {searchResults.map((foodItem, index) => (
+          <option key={`food-${foodItem.food_name}-${index}`} value={foodItem.food_name}>
+            {foodItem.food_name}
+          </option>
+        ))}
+      </select>
+    </div>
+
 
       <button onClick={handleAddFood}>Add to Daily Log</button>
+      </form>
     </div>
   );
 };
