@@ -10,23 +10,54 @@ const Calorie = () => {
     Snack: [],
 
 });
+  const [dailyGoal, setDailyGoal] = useState(2000); // Example goal, change as needed
+  const [totalCalories, setTotalCalories] = useState(0);
+  const [remainingCalories, setRemainingCalories] = useState(dailyGoal);
 
   useEffect(() => {
     const fetchNutritionData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/nutrition');
+        const response = await axios.post('http://localhost:3001/nutrition', {}, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
         setNutritionData(response.data);
+        calculateTotals(response.data);
       } catch (error) {
         console.error('Error fetching nutrition data:', error);
       }
     };
     fetchNutritionData();
     }, []);
+    const calculateTotals = (data) => {
+      let totalCal = 0;
+      let totalFat = 0;
+      let totalProtein = 0;
+      let totalCarbs = 0;
+      let totalSodium = 0;
+      let totalSugar = 0;
 
+      Object.keys(data).forEach((mealCategory) => {
+        data[mealCategory].forEach((foodItem) => {
+          totalCal += foodItem.calories;
+          totalFat += foodItem.fat;
+          totalProtein += foodItem.protein;
+          totalCarbs += foodItem.carbs;
+          totalSodium += foodItem.sodium;
+          totalSugar += foodItem.sugar;
+        });
+      });
+  
+      setTotalCalories(totalCal);
+      setRemainingCalories(dailyGoal - totalCal);
+    };
   return (
     <div>
       <button>←</button><input type="date"></input><button>→</button>
       <h1>Weekly Calorie Tracker</h1>
+
       <table>
         <caption>Calorie Log Tracker</caption>
         <thead>
@@ -43,17 +74,22 @@ const Calorie = () => {
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <th scope="row">Breakfast</th>
-          <td>
-            <Link to="/dashboard/breakfast">
-            <button>+</button>
-            </Link>
-          </td>
-          {nutritionData.Breakfast.map((food, index) => (
+        {["Breakfast", "Lunch", "Dinner", "Snack"].map((mealCategory) => (
+            <tr key={mealCategory}>
+              <th scope="row">{mealCategory}</th>
+              <td>
+              <Link
+                  to={{
+                    pathname: `/dashboard/${mealCategory.toLowerCase()}`,
+                    state: { foodData: nutritionData[mealCategory] }, // Passing the entire meal category
+                  }}
+                >
+                  <button>+/</button>
+                  </Link>
+                  </td>
+        {nutritionData[mealCategory].map((food, index) => (
               <tr key={index}>
-
-                <td>{food.food_name}</td>
+                <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
                 <td>{food.fat}</td>
@@ -61,108 +97,33 @@ const Calorie = () => {
                 <td>{food.carbs}</td>
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
-        </tr>
+            </tr>
           ))}
           </tr>
-        <tr>
-          <th scope="row">Lunch</th>
-          <td scope="col">
-          <Link to="/dashboard/lunch">
-            <button>+</button>
-            </Link>
-          </td>
-          {nutritionData.Lunch.map((food, index) => (
-              <tr key={index}>
-          <td>{food.food_name}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-        </tr>
-          ))}
-          </tr>
-        <tr>
-          <th scope="row">Dinner</th>
-          <td scope="col">
-          <Link to="/dashboard/dinner">
-            <button>+</button>
-            </Link>
-          </td>
-          {nutritionData.Dinner.map((food, index) => (
-              <tr key={index}>
-          <td>{food.food_name}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-        </tr>
-          ))}
-          </tr>
-
-        <tr>
-          <th scope="row">Snack</th>
-          <td scope="col">
-          <Link to="/dashboard/snack">
-            <button>+</button>
-          </Link>
-          </td>
-          {nutritionData.Snack.map((food, index) => (
-              <tr key={index}>
-                <td>{food.food_name}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-        </tr>
-         ))}
-          </tr>
+        ))}
         </tbody>
       </table>
-
 
       <table>
         <tbody>
         <tr>
         <th scope="row">Total</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+            <td>{nutritionData.Breakfast.reduce((acc, food) => acc + food.fat, 0)}</td>
+            <td>{nutritionData.Breakfast.reduce((acc, food) => acc + food.protein, 0)}</td>
+            <td>{nutritionData.Breakfast.reduce((acc, food) => acc + food.carbs, 0)}</td>
+            <td>{nutritionData.Breakfast.reduce((acc, food) => acc + food.sodium, 0)}</td>
+            <td>{nutritionData.Breakfast.reduce((acc, food) => acc + food.sugar, 0)}</td>
         </tr>
         <tr>
         <th scope="row">Daily Goal</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <td colSpan="5">{dailyGoal} Calories</td>
         </tr>
         <tr>
         <th scope="row">Remaining Calories</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+        <td colSpan="5">{remainingCalories} Calories</td>
         </tr>
        <tr>
-        <th scope="row"></th>
+        <th scope="row">Total</th>
           <th scope="col">Calories</th>
           <th scope="col">Fats</th>
           <th scope="col">Protein</th>

@@ -9,6 +9,13 @@ const Breakfast = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedFood, setSelectedFood] = useState("");
 
+  const [nutritionData, setNutritionData] = useState({
+    Breakfast: [],
+    Lunch: [],
+    Dinner: [],
+    Snack: [],
+  });
+
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -21,40 +28,48 @@ const Breakfast = () => {
     };
 
   const handleFoodSelect = (foodItem) => {
-    if (foodItem && foodItem.serving_qty) {
+    if (foodItem) {
     setSelectedFood(foodItem.food_name); // Set the selected food name
-    setServingUnit(Array.isArray(foodItem.serving_unit) ? foodItem.serving_unit : [foodItem.serving_unit]);
-    setServings(servings.serving_qty);
+    setServingUnit((foodItem.serving_unit));
+    setServings(foodItem.serving_qty);
   } else {
     alert("Please select a valid food item.");
   }
 };
   const handleAddFood = async () => { 
     
-    if (!selectedFood || selectedFood === "" || servingUnit === 'select' || servingUnit === "") {
+    if (!selectedFood || !servingUnit || servingUnit === "select") {
       alert('Please select a valid food and serving unit.');
       return; 
     }
     try {
-      const response = await axios.post('http://localhost:3001/nutrition', {
+      const foodData = {
         foodItem: selectedFood,
-        servings: servings,
-        servingUnit: servingUnit,
+        servings,
+        servingUnit,
         mealCategory: 'Breakfast',
+      };
+      const response = await axios.post('http://localhost:3001/nutrition', foodData, {
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',  // Ensure this is set correctly
+        }
       });
+      
+      console.log('Response from server:', response.data);
 
-      const nutritionData = response.data;
-
-      // Update the parent component's nutrition state (i.e., the calorie log) with the new food
+      const newFood = response.data;
+    
       setNutritionData((prevState) => ({
         ...prevState,
-        Breakfast: [...prevState.Breakfast, nutritionData] // Add the new food to the Breakfast section
+        Breakfast: [...prevState.Breakfast, newFood]
       }));
 
       setSearchResults([]); 
       setSelectedFood('');
       setServings(1);
-      setServingUnit([]);
+      setServingUnit('');
+
     } catch (error) {
       console.error('Error fetching nutrition data:', error);
     }
@@ -76,7 +91,7 @@ const Breakfast = () => {
           type="number"
           id="servings"
           min="1"
-          value={servings.serving_qty}
+          value={servings}
           onChange={(e) => setServings(Number(e.target.value))}
           placeholder="Enter servings number"
           required
@@ -88,7 +103,7 @@ const Breakfast = () => {
         <select
           id="serving-unit"
           value={servingUnit}
-          onChange={(e) => handleFoodSelect(searchResults.find(servingunit => servingunit.serving_unit === e.target.value))}
+          onChange={(e) => setServingUnit(e.target.value)}
         >
           <option value="select">Select a unit</option>
             {searchResults.map((servingUnitItem, index) => (

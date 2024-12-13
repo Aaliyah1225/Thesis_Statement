@@ -9,7 +9,7 @@ const corsOptions = {
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  creditials: true,
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -27,7 +27,6 @@ let mealData = {
 const axiosInstance = axios.create({
   baseURL:'https://trackapi.nutritionix.com/v2/',
   headers: {
-    "Content-Type": 'application/json',
     "x-app-id": APP_ID,
     "x-app-key": APP_KEY,
   }
@@ -65,13 +64,15 @@ console.log("Received query:", query);
   });
   
   app.post("/nutrition", async (req, res) => {
-    const { foodItem, servings, servingUnit, mealCategory } = req.body;
+    const { foodItem, servings, servingUnit, mealCategory, action } = req.body;
     console.log("Received params", req.body);
+
       if (!foodItem || !servings || !servingUnit || !mealCategory) {
       return res.status(400).json({ error: "Food ID Parameter is required" });
      }
+
     try {
-      const response = await axios.post('natural/nutrients', {
+      const response = await axiosInstance.post('natural/nutrients', {
         query: `${foodItem} ${servings} ${servingUnit}`,
     });
 
@@ -82,7 +83,7 @@ console.log("Received query:", query);
     const foodData = response.data.foods[0];
 
     const adjustedNutrition = {
-      food_name: foodData.food_name,
+      foodItem: foodData.food_name,
       calories: foodData.nf_calories * servings, // Multiply by servings
       carbs: foodData.nf_total_carbohydrate * servings,
       protein: foodData.nf_protein * servings,
@@ -92,20 +93,24 @@ console.log("Received query:", query);
       servingSize: foodData.serving_weight_grams,
       servings: foodData.serving_qty,
       servingUnit: foodData.serving_unit,
-      meal_category: mealCategory,
+      mealCategory,
     };
 
-    res.json(adjustedNutrition);
+    if (!mealData[mealCategory]) {
+      mealData[mealCategory] = [];
+    }
+    mealData[mealCategory].push(adjustedNutrition);
 
+    res.json(mealData);
    } catch (error) {
       console.error('Error fetching nutritional data:', error);
       res.status(500).json({ error: 'Failed to fetch nutritional data' });
     }
   });
 
-  app.get("/mealData", (req, res) => {
-    res.json(mealData);
-  });
+  // app.get("/mealData", (req, res) => {
+  //   res.json(mealData);
+  // });
   
   app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
