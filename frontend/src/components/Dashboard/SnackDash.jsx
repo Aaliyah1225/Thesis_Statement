@@ -49,7 +49,8 @@ const Snack = () => {
         foodItem: selectedFood,
         servings,
         servingUnit,
-        mealCategory: 'Breakfast',
+        mealCategory: 'Snack',
+        action: "update"
       };
       const response = await axios.post('http://localhost:3001/nutrition', foodData, {
         headers: {

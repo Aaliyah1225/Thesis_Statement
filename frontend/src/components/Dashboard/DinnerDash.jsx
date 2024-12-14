@@ -48,6 +48,7 @@ const Dinner = () => {
         servings,
         servingUnit,
         mealCategory: 'Dinner',
+        action: "update"
       };
       const response = await axios.post('http://localhost:3001/nutrition', foodData, {
         headers: {
