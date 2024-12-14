@@ -48,9 +48,11 @@ const Breakfast = () => {
         servings,
         servingUnit,
         mealCategory: 'Breakfast',
+        action: "update"
       };
+
+      console.log("Sending food data:", foodData)
       const response = await axios.post('http://localhost:3001/nutrition', foodData, {
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',  // Ensure this is set correctly
         }

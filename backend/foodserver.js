@@ -4,12 +4,12 @@ const port = 3001;
 const axios = require('axios');
 require("dotenv").config();
 const cors = require("cors");
+app.use(cors());
 
 const corsOptions = {
   origin: 'http://localhost:5173',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -32,6 +32,11 @@ const axiosInstance = axios.create({
   }
 });
 
+app.get("/meal-data", (req, res) => {
+  // Return the current meal data stored on the server
+  res.json(mealData);
+});
+
 app.get("/search-nutrition", async (req, res) => {
 const query = req.query.query;
 
@@ -52,8 +57,7 @@ console.log("Received query:", query);
       const allFoods = [...brandedFoods, ...commonFoods];
 
       if (allFoods.length === 0) {
-    //   res.json(firstMatch);
-    // } else {
+
       return res.status(404).json({ error: 'Food not found' });
     }
     res.json(allFoods)
@@ -67,7 +71,7 @@ console.log("Received query:", query);
     const { foodItem, servings, servingUnit, mealCategory, action } = req.body;
     console.log("Received params", req.body);
 
-      if (!foodItem || !servings || !servingUnit || !mealCategory) {
+      if (!foodItem || !servings || !servingUnit || !mealCategory || !action) {
       return res.status(400).json({ error: "Food ID Parameter is required" });
      }
 
@@ -99,18 +103,15 @@ console.log("Received query:", query);
     if (!mealData[mealCategory]) {
       mealData[mealCategory] = [];
     }
+    if (action === "update") {
     mealData[mealCategory].push(adjustedNutrition);
-
+  }
     res.json(mealData);
    } catch (error) {
       console.error('Error fetching nutritional data:', error);
       res.status(500).json({ error: 'Failed to fetch nutritional data' });
     }
   });
-
-  // app.get("/mealData", (req, res) => {
-  //   res.json(mealData);
-  // });
   
   app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
