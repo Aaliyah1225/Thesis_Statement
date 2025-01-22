@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const Calorie = () => {
   const [nutritionData, setNutritionData] = useState({
     Breakfast: [],
@@ -10,7 +11,7 @@ const Calorie = () => {
     Dinner: [],
     Snack: [],
   });
-  const [dailyGoal, setDailyGoal] = useState(2000); // Example goal, change as needed
+  const [dailyGoal, setDailyGoal] = useState(2000);
   const [totalCalories, setTotalCalories] = useState(0);
   const [remainingCalories, setRemainingCalories] = useState(dailyGoal);
 
@@ -49,14 +50,17 @@ const Calorie = () => {
       });
     });
 
+    setDailyGoal(dailyGoal);
     setTotalCalories(totalCal);
     setRemainingCalories(dailyGoal - totalCal);
   };
+  
   return (
     <div>
+      <input type="date" id="myDate">
       <button>←</button>
-      <input type="date"></input>
       <button>→</button>
+      </input>
       <h1>Weekly Calorie Tracker</h1>
 
       <table>
@@ -199,7 +203,7 @@ const Calorie = () => {
           </tr>
           <tr>
             <th scope="row">Remaining Calories</th>
-            <td colSpan="5">{remainingCalories}</td>
+            <td colSpan="5">{remainingCalories} Calories</td>
           </tr>
           <tr>
             <th scope="row">Total</th>
