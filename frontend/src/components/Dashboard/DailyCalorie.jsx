@@ -80,12 +80,9 @@ const Calorie = () => {
         <tbody>
           {/* Breakfast Section */}
           <tr>
-            <th scope="row">Breakfast</th>
-            <td>
-              <button onClick={() => navigate("/dashboard/breakfast")}>
-                Go to Breakfast
-              </button>
-            </td>
+            <th scope="row"><button onClick={() => navigate("/dashboard/breakfast")}>
+                Breakfast
+              </button></th>
           </tr>
           {nutritionData.Breakfast.length > 0 ? (
             nutritionData.Breakfast.map((food, index) => (
@@ -107,12 +104,9 @@ const Calorie = () => {
           )}
 
           <tr>
-            <th scope="row">Lunch</th>
-            <td>
-              <button onClick={() => navigate("/dashboard/lunch")}>
+            <th scope="row"><button onClick={() => navigate("/dashboard/lunch")}>
                 Go to Lunch
-              </button>
-            </td>
+              </button></th>
           </tr>
           {nutritionData.Lunch.length > 0 ? (
             nutritionData.Lunch.map((food, index) => (
@@ -134,12 +128,9 @@ const Calorie = () => {
           )}
           {/* Dinner Section */}
           <tr>
-            <th scope="row">Dinner</th>
-            <td>
-              <button onClick={() => navigate("/dashboard/dinner")}>
+            <th scope="row"><button onClick={() => navigate("/dashboard/dinner")}>
                 Go to Dinner
-              </button>
-            </td>
+              </button></th>
           </tr>
           {nutritionData.Dinner.length > 0 ? (
             nutritionData.Dinner.map((food, index) => (
@@ -162,15 +153,12 @@ const Calorie = () => {
 
           {/* Snack Section */}
           <tr>
-            <th scope="row">Dinner</th>
-            <td>
-              <button onClick={() => navigate("/dashboard/dinner")}>
-                Go to Dinner
-              </button>
-            </td>
+            <th scope="row"><button onClick={() => navigate("/dashboard/snack")}>
+                Go to Snack
+              </button></th>
           </tr>
-          {nutritionData.Dinner.length > 0 ? (
-            nutritionData.Dinner.map((food, index) => (
+          {nutritionData.Snack.length > 0 ? (
+            nutritionData.Snack.map((food, index) => (
               <tr key={index}>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
@@ -193,16 +181,16 @@ const Calorie = () => {
       <table>
         <tbody>
           <tr>
-            <th scope="row">Total Calories</th>
-            <td colSpan="5">{totalCalories} Calories</td>
+            <th scope="row">Total</th>
+            <td colSpan="5">{totalCalories}</td>
           </tr>
           <tr>
             <th scope="row">Daily Goal</th>
-            <td colSpan="5">{dailyGoal} Calories</td>
+            <td colSpan="5">{dailyGoal}</td>
           </tr>
           <tr>
-            <th scope="row">Remaining Calories</th>
-            <td colSpan="5">{remainingCalories} Calories</td>
+            <th scope="row">Remaining</th>
+            <td colSpan="5">{remainingCalories}</td>
           </tr>
           <tr>
             <th scope="row">Total</th>
