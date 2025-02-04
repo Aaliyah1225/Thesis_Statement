@@ -1,0 +1,31 @@
+body {
+    background-color: #938cff
+}
+
+.calorie-table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.calorie-counter {
+    border-collapse: collapse;
+    border: 2px solid black;
+    width: 30%;
+}
+
+.search-button {
+    text-align: center;
+    border-top: 1px solid black;
+}
