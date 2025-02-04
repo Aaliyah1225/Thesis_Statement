@@ -208,18 +208,29 @@ const Calorie = () => {
             <td>{totalFat}</td>
             <td>{totalProtein}</td>
             <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <th scope="row">Daily Goal</th>
             <td>{dailyCalorieGoal}</td>
             <td>{dailyFatGoal}</td>
             <td>{dailyProteinGoal}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <th scope="row">Remaining</th>
             <td>{remainingCalories}</td>
             <td>{remainingFat}</td>
             <td>{remainingProtein}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           </tbody>
           <thead>
