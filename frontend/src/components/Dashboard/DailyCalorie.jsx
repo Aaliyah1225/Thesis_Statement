@@ -11,9 +11,18 @@ const Calorie = () => {
     Dinner: [],
     Snack: [],
   });
-  const [dailyGoal, setDailyGoal] = useState(2000);
+  const [dailyCalorieGoal, setDailyCalorieGoal] = useState(2000);
+  const [dailyFatGoal, setDailyFatGoal] = useState(65);
+  const [dailyProteinGoal, setDailyProteinGoal] = useState(50);
+
   const [totalCalories, setTotalCalories] = useState(0);
-  const [remainingCalories, setRemainingCalories] = useState(dailyGoal);
+  const [totalFat, setTotalFat] = useState(0);
+  const [totalProtein, setTotalProtein] = useState(0);
+
+  const [remainingCalories, setRemainingCalories] = useState(dailyCalorieGoal);
+  const [remainingFat, setRemainingFat] = useState(dailyFatGoal);
+  const [remainingProtein, setRemainingProtein] = useState(dailyProteinGoal);
+
 
   const navigate = useNavigate();
 
@@ -50,9 +59,17 @@ const Calorie = () => {
       });
     });
 
-    setDailyGoal(dailyGoal);
-    setTotalCalories(totalCal);
-    setRemainingCalories(dailyGoal - totalCal);
+    setDailyCalorieGoal(dailyCalorieGoal)
+    setDailyFatGoal(dailyFatGoal)
+    setDailyProteinGoal(dailyProteinGoal)
+
+    setTotalCalories(totalCal)
+    setTotalFat(totalFat)
+    setTotalProtein(totalProtein)
+
+    setRemainingCalories(dailyGoal - totalCal)
+    setRemainingFat(dailyFatGoal - totalFat)
+    setRemainingProtein(dailyProteinGoal - totalProtein)
   };
   
   return (
@@ -80,7 +97,7 @@ const Calorie = () => {
         <tbody>
           {/* Breakfast Section */}
           <tr>
-            <th class="search-button" scope="row"><button onClick={() => navigate("/dashboard/breakfast")}>
+            <th className="search-button" scope="row"><button onClick={() => navigate("/dashboard/breakfast")}>
                 Breakfast
               </button>
               </th>
@@ -187,16 +204,25 @@ const Calorie = () => {
         <tbody>
           <tr>
             <th scope="row">Total</th>
-            <td colSpan="7">{totalCalories}</td>
+            <td>{totalCalories}</td>
+            <td>{totalFat}</td>
+            <td>{totalProtein}</td>
+            <td></td>
           </tr>
           <tr>
             <th scope="row">Daily Goal</th>
-            <td colSpan="7">{dailyGoal}</td>
+            <td>{dailyCalorieGoal}</td>
+            <td>{dailyFatGoal}</td>
+            <td>{dailyProteinGoal}</td>
           </tr>
           <tr>
             <th scope="row">Remaining</th>
-            <td colSpan="7">{remainingCalories}</td>
+            <td>{remainingCalories}</td>
+            <td>{remainingFat}</td>
+            <td>{remainingProtein}</td>
           </tr>
+          </tbody>
+          <thead>
           <tr>
             <th scope="col"></th>
             <th scope="col">Calories</th>
@@ -207,7 +233,7 @@ const Calorie = () => {
             <th scope="col">Sugar</th>
             <th scope="col">Servings</th>
           </tr>
-        </tbody>
+          </thead>
       </table>
     </div>
   );
