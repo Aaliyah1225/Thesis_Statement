@@ -130,7 +130,7 @@ const Calorie = () => {
           {nutritionData.Lunch.length > 0 ? (
             nutritionData.Lunch.map((food, index) => (
               <tr key={index}>
-                <th></th>
+                <td></td>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
@@ -155,7 +155,7 @@ const Calorie = () => {
           {nutritionData.Dinner.length > 0 ? (
             nutritionData.Dinner.map((food, index) => (
               <tr key={index}>
-                <th></th>
+                <td></td>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
@@ -181,7 +181,7 @@ const Calorie = () => {
           {nutritionData.Snack.length > 0 ? (
             nutritionData.Snack.map((food, index) => (
               <tr key={index}>
-                <th></th>
+                <td></td>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
