@@ -14,15 +14,18 @@ const Calorie = () => {
   const [dailyCalorieGoal, setDailyCalorieGoal] = useState(2000);
   const [dailyFatGoal, setDailyFatGoal] = useState(65);
   const [dailyProteinGoal, setDailyProteinGoal] = useState(50);
+  const [dailyCarbGoal, setDailyCarbGoal] = useState(300);
 
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalFat, setTotalFat] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
+  const [totalCarbs, setTotalCarbs] = useState(0);
+
 
   const [remainingCalories, setRemainingCalories] = useState(dailyCalorieGoal);
   const [remainingFat, setRemainingFat] = useState(dailyFatGoal);
   const [remainingProtein, setRemainingProtein] = useState(dailyProteinGoal);
-
+  const [remainingCarbs, setRemainingCarbs] = useState(dailyCarbGoal);
 
   const navigate = useNavigate();
 
