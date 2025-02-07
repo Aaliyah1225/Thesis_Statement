@@ -21,7 +21,6 @@ const Calorie = () => {
   const [totalProtein, setTotalProtein] = useState(0);
   const [totalCarbs, setTotalCarbs] = useState(0);
 
-
   const [remainingCalories, setRemainingCalories] = useState(dailyCalorieGoal);
   const [remainingFat, setRemainingFat] = useState(dailyFatGoal);
   const [remainingProtein, setRemainingProtein] = useState(dailyProteinGoal);
@@ -62,19 +61,19 @@ const Calorie = () => {
       });
     });
 
-    setDailyCalorieGoal(dailyCalorieGoal)
-    setDailyFatGoal(dailyFatGoal)
-    setDailyProteinGoal(dailyProteinGoal)
+    setDailyCalorieGoal(dailyCalorieGoal);
+    setDailyFatGoal(dailyFatGoal);
+    setDailyProteinGoal(dailyProteinGoal);
 
-    setTotalCalories(totalCal)
-    setTotalFat(totalFat)
-    setTotalProtein(totalProtein)
+    setTotalCalories(totalCal);
+    setTotalFat(totalFat);
+    setTotalProtein(totalProtein);
 
-    setRemainingCalories(dailyGoal - totalCal)
-    setRemainingFat(dailyFatGoal - totalFat)
-    setRemainingProtein(dailyProteinGoal - totalProtein)
+    setRemainingCalories(dailyGoal - totalCal);
+    setRemainingFat(dailyFatGoal - totalFat);
+    setRemainingProtein(dailyProteinGoal - totalProtein);
   };
-  
+
   return (
     <div>
       <button>←</button>
@@ -87,6 +86,7 @@ const Calorie = () => {
         <thead>
           <tr>
             <th scope="row">Category</th>
+            <th scope="row">Search Foods</th>
             <th scope="row">Food Item</th>
             <th scope="row">Calories</th>
             <th scope="row">Servings</th>
@@ -100,15 +100,21 @@ const Calorie = () => {
         <tbody>
           {/* Breakfast Section */}
           <tr>
-            <th className="search-button" scope="row"><button onClick={() => navigate("/dashboard/breakfast")}>
+            <th>Breakfast</th>
+            <td className="search-button" scope="row">
+              <button onClick={() => navigate("/dashboard/breakfast")}>
                 Breakfast
               </button>
-              </th>
+            </td>
           </tr>
-          {nutritionData.Breakfast.length > 0 ? (
+          {nutritionData.Breakfast.length > 0 &&
             nutritionData.Breakfast.map((food, index) => (
               <tr key={index}>
-                <td></td>
+                <td className="search-button" scope="row">
+                  <button onClick={() => navigate("/dashboard/breakfast")}>
+                    Breakfast
+                  </button>
+                </td>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
@@ -118,22 +124,18 @@ const Calorie = () => {
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9">No data available</td>
-            </tr>
-          )}
+            ))}
 
           <tr>
-            <td className="search-button" scope="row"><button onClick={() => navigate("/dashboard/lunch")}>
+            <td className="search-button" scope="row">
+              <button onClick={() => navigate("/dashboard/lunch")}>
                 Lunch
-              </button></td>
+              </button>
+            </td>
           </tr>
-          {nutritionData.Lunch.length > 0 ? (
-            nutritionData.Lunch.map((food, index) => (
+          {nutritionData.Dinner.length > 0 &&
+            nutritionData.Dinner.map((food, index) => (
               <tr key={index}>
-                <td></td>
                 <td>{food.foodItem}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
@@ -143,19 +145,16 @@ const Calorie = () => {
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="9">No data available</td>
-            </tr>
-          )}
+            ))}
           {/* Dinner Section */}
           <tr>
-            <td className="search-button" scope="row"><button onClick={() => navigate("/dashboard/dinner")}>
+            <td className="search-button" scope="row">
+              <button onClick={() => navigate("/dashboard/dinner")}>
                 Dinner
-              </button></td>
+              </button>
+            </td>
           </tr>
-          {nutritionData.Dinner.length > 0 ? (
+          {nutritionData.Dinner.length > 0 &&
             nutritionData.Dinner.map((food, index) => (
               <tr key={index}>
                 <td></td>
@@ -169,19 +168,16 @@ const Calorie = () => {
                 <td>{food.sugar}</td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td colSpan="9">No data available</td>
-            </tr>
-          )}
-
+          }
           {/* Snack Section */}
           <tr>
-            <td className="search-button" scope="row"><button onClick={() => navigate("/dashboard/snack")}>
+            <td className="search-button" scope="row">
+              <button onClick={() => navigate("/dashboard/snack")}>
                 Snack
-              </button></td>
+              </button>
+            </td>
           </tr>
-          {nutritionData.Snack.length > 0 ? (
+          {nutritionData.Snack.length > 0 &&
             nutritionData.Snack.map((food, index) => (
               <tr key={index}>
                 <td></td>
@@ -195,11 +191,8 @@ const Calorie = () => {
                 <td>{food.sugar}</td>
               </tr>
             ))
-          ) : (
-            <tr>
-              <td colSpan="9">No data available</td>
-            </tr>
-          )}
+            }
+            
         </tbody>
       </table>
 
@@ -235,8 +228,8 @@ const Calorie = () => {
             <td></td>
             <td></td>
           </tr>
-          </tbody>
-          <thead>
+        </tbody>
+        <thead>
           <tr>
             <th scope="col"></th>
             <th scope="col">Calories</th>
@@ -247,7 +240,7 @@ const Calorie = () => {
             <th scope="col">Sugar</th>
             <th scope="col">Servings</th>
           </tr>
-          </thead>
+        </thead>
       </table>
     </div>
   );
