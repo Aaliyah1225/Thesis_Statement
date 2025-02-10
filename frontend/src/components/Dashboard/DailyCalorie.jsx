@@ -15,16 +15,22 @@ const Calorie = () => {
   const [dailyFatGoal, setDailyFatGoal] = useState(65);
   const [dailyProteinGoal, setDailyProteinGoal] = useState(50);
   const [dailyCarbGoal, setDailyCarbGoal] = useState(300);
+  const [dailySodiumGoal, setDailySodiumGoal] = useState(2400);
+  const [dailySugarGoal, setDailySugarGoal] = useState(50);
 
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalFat, setTotalFat] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
   const [totalCarbs, setTotalCarbs] = useState(0);
+  const [totalSodium, setTotalSodium] = useState(0);
+  const [totalSugar, setTotalSugar] = useState(0);
 
   const [remainingCalories, setRemainingCalories] = useState(dailyCalorieGoal);
   const [remainingFat, setRemainingFat] = useState(dailyFatGoal);
   const [remainingProtein, setRemainingProtein] = useState(dailyProteinGoal);
   const [remainingCarbs, setRemainingCarbs] = useState(dailyCarbGoal);
+  const [remainingSodium, setRemainingSodium] = useState(dailySodiumGoal);
+  const [remainingSugar, setRemainingSugar] = useState(dailySugarGoal);
 
   const navigate = useNavigate();
 
@@ -64,14 +70,23 @@ const Calorie = () => {
     setDailyCalorieGoal(dailyCalorieGoal);
     setDailyFatGoal(dailyFatGoal);
     setDailyProteinGoal(dailyProteinGoal);
+    setDailyCarbGoal(dailyCarbGoal);
+    setDailySodiumGoal(dailySodiumGoal);
+    setDailySugarGoal(dailySugarGoal);
 
     setTotalCalories(totalCal);
     setTotalFat(totalFat);
     setTotalProtein(totalProtein);
+    setTotalCarbs(totalCarbs);
+    setTotalSodium(totalSodium);
+    setTotalSugar(totalSugar);
 
-    setRemainingCalories(dailyGoal - totalCal);
+    setRemainingCalories(dailyCalorieGoal - totalCal);
     setRemainingFat(dailyFatGoal - totalFat);
     setRemainingProtein(dailyProteinGoal - totalProtein);
+    setRemainingCarbs(dailyCarbGoal - totalCarbs);
+    setRemainingSodium(dailySodiumGoal - totalSodium);
+    setRemainingSugar(dailySugarGoal - totalSugar);
   };
 
   return (
@@ -203,30 +218,27 @@ const Calorie = () => {
             <td>{totalCalories}</td>
             <td>{totalFat}</td>
             <td>{totalProtein}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{totalCarbs}</td>
+            <td>{totalSodium}</td>
+            <td>{totalSugar}</td>
           </tr>
           <tr>
             <th scope="row">Daily Goal</th>
             <td>{dailyCalorieGoal}</td>
             <td>{dailyFatGoal}</td>
             <td>{dailyProteinGoal}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{dailyCarbGoal}</td>
+            <td>{dailySodiumGoal}</td>
+            <td>{dailySugarGoal}</td>
           </tr>
           <tr>
             <th scope="row">Remaining</th>
             <td>{remainingCalories}</td>
             <td>{remainingFat}</td>
             <td>{remainingProtein}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{remainingCarbs}</td>
+            <td>{remainingSodium}</td>
+            <td>{remainingSugar}</td>
           </tr>
         </tbody>
         <thead>
@@ -238,7 +250,6 @@ const Calorie = () => {
             <th scope="col">Carbohydrates</th>
             <th scope="col">Sodium</th>
             <th scope="col">Sugar</th>
-            <th scope="col">Servings</th>
           </tr>
         </thead>
       </table>
