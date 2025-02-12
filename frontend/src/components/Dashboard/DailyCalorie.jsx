@@ -144,8 +144,8 @@ const Calorie = () => {
               </button>
             </td>
           </tr>
-          {nutritionData.Dinner.length > 0 &&
-            nutritionData.Dinner.map((food, index) => (
+          {nutritionData.Lunch.length > 0 &&
+            nutritionData.Lunch.map((food, index) => (
               <tr key={index}>
                 <td></td>
                 <td></td>
