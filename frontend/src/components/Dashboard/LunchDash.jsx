@@ -1,6 +1,7 @@
 import "./LunchDash.css";
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Lunch = () => {
 
@@ -37,6 +38,8 @@ const Lunch = () => {
     alert("Please select a valid food item.");
   }
 };
+
+  const navigate = useNavigate();
   const handleAddFood = async () => { 
     
     if (!selectedFood || !servingUnit || servingUnit === "select") {
@@ -70,6 +73,8 @@ const Lunch = () => {
       setSelectedFood('');
       setServings(1);
       setServingUnit('');
+
+      navigate("/dashboard");
 
     } catch (error) {
       console.error('Error fetching nutrition data:', error);
