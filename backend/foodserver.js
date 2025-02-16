@@ -60,6 +60,8 @@ console.log("Received query:", query);
 
       return res.status(404).json({ error: 'Food not found' });
     }
+
+
     res.json(allFoods)
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -88,7 +90,8 @@ console.log("Received query:", query);
 
     const adjustedNutrition = {
       foodItem: foodData.food_name,
-      calories: foodData.nf_calories * servings, // Multiply by servings
+      foodName: foodData.brand_name_item_name,
+      calories: foodData.nf_calories * servings, 
       carbs: foodData.nf_total_carbohydrate * servings,
       protein: foodData.nf_protein * servings,
       fat: foodData.nf_total_fat * servings,

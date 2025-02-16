@@ -125,7 +125,7 @@ const Calorie = () => {
               <tr key={index}>
                 <td></td>
                 <td></td>
-                <td>{food.foodItem}</td>
+                <td>{food.foodName}</td>
                 <td>{food.calories}</td>
                 <td>{food.servings}</td>
                 <td>{food.fat}</td>
