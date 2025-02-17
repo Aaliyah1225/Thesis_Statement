@@ -116,7 +116,8 @@ const Calorie = () => {
           {/* Breakfast Section */}
           <tr>
             <th>Breakfast</th>
-            <td><button onClick={() => navigate("/dashboard/breakfast")}>
+            <td className="search-button-row" scope="row">
+              <button className="search-button" onClick={() => navigate("/dashboard/breakfast")}>
                 Breakfast
               </button></td>
           </tr>
@@ -138,8 +139,8 @@ const Calorie = () => {
 
           <tr>
             <th>Lunch</th>
-            <td className="search-button" scope="row">
-              <button onClick={() => navigate("/dashboard/lunch")}>
+            <td className="search-button-row" scope="row">
+              <button className="search-button" onClick={() => navigate("/dashboard/lunch")}>
                 Lunch
               </button>
             </td>
@@ -162,8 +163,8 @@ const Calorie = () => {
           {/* Dinner Section */}
           <tr>
             <th>Dinner</th>
-            <td className="search-button" scope="row">
-              <button onClick={() => navigate("/dashboard/dinner")}>
+            <td className="search-button-row" scope="row">
+              <button className="search-button" onClick={() => navigate("/dashboard/dinner")}>
                 Dinner
               </button>
             </td>
@@ -187,8 +188,8 @@ const Calorie = () => {
           {/* Snack Section */}
           <tr>
             <th>Snack</th>
-            <td className="search-button" scope="row">
-              <button onClick={() => navigate("/dashboard/snack")}>
+            <td className="search-button-row" scope="row">
+              <button className="search-button" onClick={() => navigate("/dashboard/snack")}>
                 Snack
               </button>
             </td>
@@ -212,7 +213,7 @@ const Calorie = () => {
         </tbody>
       </table>
 
-
+            
       <table className="calorie-counter">
         <tbody>
           <tr>

@@ -1,7 +1,34 @@
-table, th, td {
+
+table, th {
     border: 1px solid black;
     border-collapse: collapse;
 }
+
 .calorie-table {
-    width: 100%;
+    margin-bottom: 10px;
+    table-layout: fixed;
+    width: 100%
+}
+.calorie-counter {
+    table-layout: auto;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    text-align: center;
+}
+.search-button-row {
+    border: 1px solid black;
+}
+
+.calorie-counter td {
+    border: 1px solid black;
+}
+
+.search-button {
+    background-color: #6991ff;
+    color: white;
+    border-radius: 10px;
 }
