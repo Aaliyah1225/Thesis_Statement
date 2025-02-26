@@ -89,7 +89,7 @@ console.log("Received query:", query);
     const foodData = response.data.foods[0];
 
     const adjustedNutrition = {
-      foodItem: foodData.food_name,
+      foodItem,
       calories: foodData.nf_calories * servings, 
       carbs: foodData.nf_total_carbohydrate * servings,
       protein: foodData.nf_protein * servings,
