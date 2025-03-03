@@ -26,9 +26,3 @@ td {
 .calorie-counter td {
     border: 1px solid black;
 }
-
-.search-button {
-    background-color: #6991ff;
-    color: white;
-    border-radius: 10px;
-}
