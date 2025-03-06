@@ -7,7 +7,6 @@ import BreakfastDash from "./components/dashboard/BreakfastDash";
 import LunchDash from "./components/dashboard/LunchDash";
 import DinnerDash from "./components/dashboard/DinnerDash";
 import SnackDash from "./components/dashboard/SnackDash";
-import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     <div>
     <Router>
         <Routes>
-          <Route path="/" element={<><NavBar /><Homepage /></>} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Registers />} />
           <Route path="/dashboard" element={<DailyCalorie />} />
