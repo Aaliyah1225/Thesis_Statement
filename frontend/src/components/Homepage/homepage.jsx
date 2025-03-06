@@ -11,10 +11,8 @@ function Homepage() {
         <h2>About</h2>
         <h2>Services</h2>
         <p>Welcome to NutriFit! The Fitness App for you!</p>
-        <h1>Not registered yet? Click here to sign in</h1>
-        <button onClick={() => navigate("/signup")}>Sign up</button>
-        <h1>Already registered?</h1>
-        <button onClick={() => navigate("/login")}>Login</button>
+        <h1>Click Here to check out the Dashboard!</h1>
+        <button onClick={() => navigate("/dashboard")}>Main Dashboard</button>
       </div>
     );
   }
