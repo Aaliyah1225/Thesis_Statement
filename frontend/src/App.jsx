@@ -7,6 +7,7 @@ import BreakfastDash from "./components/dashboard/BreakfastDash";
 import LunchDash from "./components/dashboard/LunchDash";
 import DinnerDash from "./components/dashboard/DinnerDash";
 import SnackDash from "./components/dashboard/SnackDash";
+import Calculator from "./components/BMRCalculator/Calculator";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/dashboard/lunch" element={<LunchDash />} />
           <Route path="/dashboard/dinner" element={<DinnerDash />} />
           <Route path="/dashboard/snack" element={<SnackDash />} />
+          <Route path="/calculator" element={<Calculator />} />
         </Routes>
     </Router>
     </div>
