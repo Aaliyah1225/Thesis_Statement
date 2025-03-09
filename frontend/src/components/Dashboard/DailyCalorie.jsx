@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DatePicker from 'react-date-picker';
 
 function Calorie() {
   const [nutritionData, setNutritionData] = useState({
@@ -90,34 +89,37 @@ function Calorie() {
     setRemainingSugar(dailySugarGoal - totalSugar);
   };
 
-const [selectedDate, setSelectedDate] = useState(null);
+  const handleDeleteFood = (mealCategory, index) => {
+    const updatedNutritionData = { ...nutritionData };
+    updatedNutritionData[mealCategory].splice(index, 1);
+    setNutritionData(updatedNutritionData);
+    calculateTotals(updatedNutritionData);
+  };
+
+const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0,10));
+
+const handleDateChange = (e) => {
+  setSelectedDate(e.target.value);
+};
 
 const handlePreviousDay = () => {
-  setSelectedDate(prevDate => {
-    const newDate = new Date(prevDate);
-    newDate.setDate(newDate.getDate() - 1);
-    return newDate;
-  });
-};
+  const currentDate = new Date(selectedDate);
+  currentDate.setDate(currentDate.getDate() - 1);
+  setSelectedDate(currentDate.toISOString().substring(0,10));
+  };
 
 const handleNextDay = () => {
-  setSelectedDate(prevDate => {
-    const newDate = new Date(prevDate);
-    newDate.setDate(newDate.getDate() + 1);
-    return newDate;
-  });
-};
+  const currentDate = new Date(selectedDate);
+  currentDate.setDate(currentDate.getDate() + 1);
+  setSelectedDate(currentDate.toISOString().substring(0,10));
+  };
 
   return (
     <div>
-      <div>
-        <button click={handlePreviousDay}>Previous Day</button>
-      <DatePicker selected={selectedDate}
-      onChange={date => setSelectedDate(date)} 
-      />
-        <button click={handleNextDay}>Next Day</button>
-</div>
-
+      <button onClick={handlePreviousDay}>&larr;</button>
+      <input type="date" value={selectedDate} onChange={handleDateChange} />
+      <button onClick={handleNextDay}>&rarr;</button>
+      
       <h2>Weekly Calorie Tracker</h2>
       <table className="calorie-table">
         <caption>Calorie Log Tracker</caption>
@@ -133,6 +135,7 @@ const handleNextDay = () => {
             <th scope="row">Carbohydrates</th>
             <th scope="row">Sodium</th>
             <th scope="row">Sugar</th>
+            <th scope="row">Action Button</th>
           </tr>
         </thead>
         <tbody>
@@ -157,6 +160,7 @@ const handleNextDay = () => {
                 <td>{food.carbs}</td>
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
+                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Breakfast', index)}>X</button></td>
               </tr>
             ))}
 
@@ -181,6 +185,7 @@ const handleNextDay = () => {
                 <td>{food.carbs}</td>
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
+                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Lunch', index)}>X</button></td>
               </tr>
             ))}
           {/* Dinner Section */}
@@ -205,6 +210,7 @@ const handleNextDay = () => {
                 <td>{food.carbs}</td>
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
+                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Dinner', index)}>X</button></td>
               </tr>
             ))
           }
@@ -230,6 +236,7 @@ const handleNextDay = () => {
                 <td>{food.carbs}</td>
                 <td>{food.sodium}</td>
                 <td>{food.sugar}</td>
+                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Snack', index)}>X</button></td>
               </tr>
             ))
             }
