@@ -242,9 +242,9 @@ const handleNextDay = () => {
             }
         </tbody>
       </table>
-
-            
+  
       <table className="calorie-counter">
+      <caption>Daily Goal Tracker</caption>
         <tbody>
           <tr>
             <th scope="row">Total</th>

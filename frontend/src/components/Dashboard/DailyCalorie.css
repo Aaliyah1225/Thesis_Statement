@@ -5,8 +5,8 @@ table, th {
 }
 
 .calorie-table {
+    table-layout: auto;
     margin-bottom: 10px;
-    table-layout: fixed;
     width: 100%
 }
 .calorie-counter {
