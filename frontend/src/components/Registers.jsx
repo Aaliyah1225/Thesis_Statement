@@ -1,5 +1,6 @@
 import "./Registers.css";
-
+import { useState } from "react";
+import { useNavigation } from "react-router-dom";
 function Registers() {
   return (
     <div>

@@ -11,8 +11,10 @@ function Homepage() {
         <h2>About</h2>
         <h2>Services</h2>
         <p>Welcome to NutriFit! The Fitness App for you!</p>
-        <h1>Click Here to check out the Dashboard!</h1>
+        <h3>Click Here to check out the Dashboard!</h3>
         <button onClick={() => navigate("/dashboard")}>Main Dashboard</button>
+        <h3>Want to check your BMR? Click on the button below!</h3>
+        <button onClick={() => navigate("/calculator")}>BMR Calculator</button>
       </div>
     );
   }
