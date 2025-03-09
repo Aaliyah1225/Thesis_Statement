@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import DatePicker from 'react-date-picker';
 
-const Calorie = () => {
+function Calorie() {
   const [nutritionData, setNutritionData] = useState({
     Breakfast: [],
     Lunch: [],
@@ -89,13 +90,35 @@ const Calorie = () => {
     setRemainingSugar(dailySugarGoal - totalSugar);
   };
 
+const [selectedDate, setSelectedDate] = useState(null);
+
+const handlePreviousDay = () => {
+  setSelectedDate(prevDate => {
+    const newDate = new Date(prevDate);
+    newDate.setDate(newDate.getDate() - 1);
+    return newDate;
+  });
+};
+
+const handleNextDay = () => {
+  setSelectedDate(prevDate => {
+    const newDate = new Date(prevDate);
+    newDate.setDate(newDate.getDate() + 1);
+    return newDate;
+  });
+};
+
   return (
     <div>
-      <button>←</button>
-      <input type="date" id="myDate"></input>
-      <button>→</button>
-      <h1>Weekly Calorie Tracker</h1>
+      <div>
+        <button click={handlePreviousDay}>Previous Day</button>
+      <DatePicker selected={selectedDate}
+      onChange={date => setSelectedDate(date)} 
+      />
+        <button click={handleNextDay}>Next Day</button>
+</div>
 
+      <h2>Weekly Calorie Tracker</h2>
       <table className="calorie-table">
         <caption>Calorie Log Tracker</caption>
         <thead>
