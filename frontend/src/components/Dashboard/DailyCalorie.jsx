@@ -38,11 +38,11 @@ function Calorie() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchNutritionData = async (date) => {
+    const fetchNutritionData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/meal-data");
         setNutritionData(response.data);
-        calculateTotals(response.data);
+        calculateTotals(response.data[selectedDate] || {});
       } catch (error) {
         console.error("Error fetching nutrition data:", error);
       }
@@ -54,17 +54,9 @@ function Calorie() {
     setSelectedDate(e.target.value);
   };
 
-  const handlePreviousDay = () => {
-    const currentDate = new Date(selectedDate);
-    currentDate.setDate(currentDate.getDate() - 1);
-    setSelectedDate(currentDate.toISOString().substring(0, 10));
-  };
+  const handlePreviousDay = () => handleDateChange (-1);
 
-  const handleNextDay = () => {
-    const currentDate = new Date(selectedDate);
-    currentDate.setDate(currentDate.getDate() + 1);
-    setSelectedDate(currentDate.toISOString().substring(0, 10));
-  };
+  const handleNextDay = () => handleDateChange (+1);
 
   const calculateTotals = (data) => {
     let totalCal = 0;
@@ -153,8 +145,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Breakfast.length > 0 &&
-              nutritionData.Breakfast.map((food, index) => (
-                <tr key={index}>
+              nutritionData.Breakfast.map((food) => (
+                <tr key={food.id}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -169,7 +161,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Breakfast", index)}
+                      onClick={() => handleDeleteFood("Breakfast")}
                     >
                       X
                     </button>
@@ -189,8 +181,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Lunch.length > 0 &&
-              nutritionData.Lunch.map((food, index) => (
-                <tr key={index}>
+              nutritionData.Lunch.map((food) => (
+                <tr key={food.id}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -205,7 +197,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Lunch", index)}
+                      onClick={() => handleDeleteFood("Lunch")}
                     >
                       X
                     </button>
@@ -225,8 +217,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Dinner.length > 0 &&
-              nutritionData.Dinner.map((food, index) => (
-                <tr key={index}>
+              nutritionData.Dinner.map((food) => (
+                <tr key={food.id}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -241,7 +233,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Dinner", index)}
+                      onClick={() => handleDeleteFood("Dinner")}
                     >
                       X
                     </button>
@@ -261,8 +253,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Snack.length > 0 &&
-              nutritionData.Snack.map((food, index) => (
-                <tr key={index}>
+              nutritionData.Snack.map((food) => (
+                <tr key={food.id}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -277,7 +269,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Snack", index)}
+                      onClick={() => handleDeleteFood("Snack")}
                     >
                       X
                     </button>
