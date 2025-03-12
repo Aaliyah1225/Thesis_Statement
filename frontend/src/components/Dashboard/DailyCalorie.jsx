@@ -40,7 +40,7 @@ function Calorie() {
   useEffect(() => {
     const fetchNutritionData = async (date) => {
       try {
-        const response = await axios.get("http://localhost:3001/meal-data?");
+        const response = await axios.get("http://localhost:3001/meal-data");
         setNutritionData(response.data);
         calculateTotals(response.data);
       } catch (error) {
