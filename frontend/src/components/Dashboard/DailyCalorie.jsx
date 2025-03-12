@@ -32,41 +32,40 @@ function Calorie() {
   const [remainingSodium, setRemainingSodium] = useState(dailySodiumGoal);
   const [remainingSugar, setRemainingSugar] = useState(dailySugarGoal);
 
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0,10));
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().substring(0, 10)
+  );
   const navigate = useNavigate();
-  
-  useEffect(() => { 
+
+  useEffect(() => {
     const fetchNutritionData = async (date) => {
       try {
-        const response = await axios.get(`http://localhost:3001/meal-data?date=${date}`);
+        const response = await axios.get("http://localhost:3001/meal-data?");
         setNutritionData(response.data);
         calculateTotals(response.data);
       } catch (error) {
         console.error("Error fetching nutrition data:", error);
       }
     };
+    fetchNutritionData();
+  }, []);
 
-      if (selectedDate) {
-        fetchNutritionData(selectedDate);
-      }
-    }, [selectedDate]);
-    
-    const handleDateChange = (e) => {
-      setSelectedDate(e.target.value);
-    };
-  
-    const handlePreviousDay = () => {
-      const currentDate = new Date(selectedDate);
-      currentDate.setDate(currentDate.getDate() - 1);
-      setSelectedDate(currentDate.toISOString().substring(0,10));
-      };
-    
-    const handleNextDay = () => {
-      const currentDate = new Date(selectedDate);
-      currentDate.setDate(currentDate.getDate() + 1);
-      setSelectedDate(currentDate.toISOString().substring(0,10));
-      };
-      
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
+  const handlePreviousDay = () => {
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() - 1);
+    setSelectedDate(currentDate.toISOString().substring(0, 10));
+  };
+
+  const handleNextDay = () => {
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+    setSelectedDate(currentDate.toISOString().substring(0, 10));
+  };
+
   const calculateTotals = (data) => {
     let totalCal = 0;
     let totalFat = 0;
@@ -120,133 +119,176 @@ function Calorie() {
       <button onClick={handlePreviousDay}>&larr;</button>
       <input type="date" value={selectedDate} onChange={handleDateChange} />
       <button onClick={handleNextDay}>&rarr;</button>
-      
-      <h2>Daily Calorie Tracker</h2>
-      <form>
-      <table className="calorie-table">
-        <caption>Calorie Log Tracker</caption>
-        <thead>
-          <tr>
-            <th scope="row">Category</th>
-            <th scope="row">Search Foods</th>
-            <th scope="row">Food Item</th>
-            <th scope="row">Calories</th>
-            <th scope="row">Servings</th>
-            <th scope="row">Fats</th>
-            <th scope="row">Protein</th>
-            <th scope="row">Carbohydrates</th>
-            <th scope="row">Sodium</th>
-            <th scope="row">Sugar</th>
-            <th scope="row">Action Button</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Breakfast Section */}
-          <tr>
-            <th>Breakfast</th>
-            <td className="search-button-row" scope="row">
-              <button className="search-button" onClick={() => navigate("/dashboard/breakfast")}>
-                Breakfast
-              </button></td>
-          </tr>
-          {nutritionData.Breakfast.length > 0 &&
-            nutritionData.Breakfast.map((food, index) => (
-              <tr key={index}>
-                <td></td>
-                <td></td>
-                <td>{food.foodItem}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Breakfast', index)}>X</button></td>
-              </tr>
-            ))}
 
-          <tr>
-            <th>Lunch</th>
-            <td className="search-button-row" scope="row">
-              <button className="search-button" onClick={() => navigate("/dashboard/lunch")}>
-                Lunch
-              </button>
-            </td>
-          </tr>
-          {nutritionData.Lunch.length > 0 &&
-            nutritionData.Lunch.map((food, index) => (
-              <tr key={index}>
-                <td></td>
-                <td></td>
-                <td>{food.foodItem}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Lunch', index)}>X</button></td>
-              </tr>
-            ))}
-          {/* Dinner Section */}
-          <tr>
-            <th>Dinner</th>
-            <td className="search-button-row" scope="row">
-              <button className="search-button" onClick={() => navigate("/dashboard/dinner")}>
-                Dinner
-              </button>
-            </td>
-          </tr>
-          {nutritionData.Dinner.length > 0 &&
-            nutritionData.Dinner.map((food, index) => (
-              <tr key={index}>
-                <td></td>
-                <td></td>
-                <td>{food.foodItem}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Dinner', index)}>X</button></td>
-              </tr>
-            ))
-          }
-          {/* Snack Section */}
-          <tr>
-            <th>Snack</th>
-            <td className="search-button-row" scope="row">
-              <button className="search-button" onClick={() => navigate("/dashboard/snack")}>
-                Snack
-              </button>
-            </td>
-          </tr>
-          {nutritionData.Snack.length > 0 &&
-            nutritionData.Snack.map((food, index) => (
-              <tr key={index}>
-                <td></td>
-                <td></td>
-                <td>{food.foodItem}</td>
-                <td>{food.calories}</td>
-                <td>{food.servings}</td>
-                <td>{food.fat}</td>
-                <td>{food.protein}</td>
-                <td>{food.carbs}</td>
-                <td>{food.sodium}</td>
-                <td>{food.sugar}</td>
-                <td><button type="button" className="delete" onClick={() => handleDeleteFood('Snack', index)}>X</button></td>
-              </tr>
-            ))
-            }
-        </tbody>
-      </table>
+      <h2 class="tracker-title">Daily Calorie Tracker</h2>
+      <form>
+        <table className="calorie-table">
+          <caption>Calorie Log Tracker</caption>
+          <thead>
+            <tr>
+              <th scope="row">Category</th>
+              <th scope="row">Search Foods</th>
+              <th scope="row">Food Item</th>
+              <th scope="row">Calories</th>
+              <th scope="row">Servings</th>
+              <th scope="row">Fats</th>
+              <th scope="row">Protein</th>
+              <th scope="row">Carbohydrates</th>
+              <th scope="row">Sodium</th>
+              <th scope="row">Sugar</th>
+              <th scope="row">Action Button</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Breakfast Section */}
+            <tr>
+              <th>Breakfast</th>
+              <td className="search-button-row" scope="row">
+                <button
+                  className="search-button"
+                  onClick={() => navigate("/dashboard/breakfast")}
+                >
+                  Breakfast
+                </button>
+              </td>
+            </tr>
+            {nutritionData.Breakfast.length > 0 &&
+              nutritionData.Breakfast.map((food, index) => (
+                <tr key={index}>
+                  <td></td>
+                  <td></td>
+                  <td>{food.foodItem}</td>
+                  <td>{food.calories}</td>
+                  <td>{food.servings}</td>
+                  <td>{food.fat}</td>
+                  <td>{food.protein}</td>
+                  <td>{food.carbs}</td>
+                  <td>{food.sodium}</td>
+                  <td>{food.sugar}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="delete"
+                      onClick={() => handleDeleteFood("Breakfast", index)}
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
+
+            <tr>
+              <th>Lunch</th>
+              <td className="search-button-row" scope="row">
+                <button
+                  className="search-button"
+                  onClick={() => navigate("/dashboard/lunch")}
+                >
+                  Lunch
+                </button>
+              </td>
+            </tr>
+            {nutritionData.Lunch.length > 0 &&
+              nutritionData.Lunch.map((food, index) => (
+                <tr key={index}>
+                  <td></td>
+                  <td></td>
+                  <td>{food.foodItem}</td>
+                  <td>{food.calories}</td>
+                  <td>{food.servings}</td>
+                  <td>{food.fat}</td>
+                  <td>{food.protein}</td>
+                  <td>{food.carbs}</td>
+                  <td>{food.sodium}</td>
+                  <td>{food.sugar}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="delete"
+                      onClick={() => handleDeleteFood("Lunch", index)}
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            {/* Dinner Section */}
+            <tr>
+              <th>Dinner</th>
+              <td className="search-button-row" scope="row">
+                <button
+                  className="search-button"
+                  onClick={() => navigate("/dashboard/dinner")}
+                >
+                  Dinner
+                </button>
+              </td>
+            </tr>
+            {nutritionData.Dinner.length > 0 &&
+              nutritionData.Dinner.map((food, index) => (
+                <tr key={index}>
+                  <td></td>
+                  <td></td>
+                  <td>{food.foodItem}</td>
+                  <td>{food.calories}</td>
+                  <td>{food.servings}</td>
+                  <td>{food.fat}</td>
+                  <td>{food.protein}</td>
+                  <td>{food.carbs}</td>
+                  <td>{food.sodium}</td>
+                  <td>{food.sugar}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="delete"
+                      onClick={() => handleDeleteFood("Dinner", index)}
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            {/* Snack Section */}
+            <tr>
+              <th>Snack</th>
+              <td className="search-button-row" scope="row">
+                <button
+                  className="search-button"
+                  onClick={() => navigate("/dashboard/snack")}
+                >
+                  Snack
+                </button>
+              </td>
+            </tr>
+            {nutritionData.Snack.length > 0 &&
+              nutritionData.Snack.map((food, index) => (
+                <tr key={index}>
+                  <td></td>
+                  <td></td>
+                  <td>{food.foodItem}</td>
+                  <td>{food.calories}</td>
+                  <td>{food.servings}</td>
+                  <td>{food.fat}</td>
+                  <td>{food.protein}</td>
+                  <td>{food.carbs}</td>
+                  <td>{food.sodium}</td>
+                  <td>{food.sugar}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="delete"
+                      onClick={() => handleDeleteFood("Snack", index)}
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </form>
       <table className="calorie-counter">
-      <caption>Daily Goal Tracker</caption>
+        <caption>Daily Goal Tracker</caption>
         <tbody>
           <tr>
             <th scope="row">Total</th>
@@ -290,6 +332,6 @@ function Calorie() {
       </table>
     </div>
   );
-};
+}
 
 export default Calorie;
