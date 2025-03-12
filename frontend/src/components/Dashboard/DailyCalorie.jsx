@@ -58,6 +58,7 @@ function Calorie() {
 
   const handleNextDay = () => handleDateChange (+1);
 
+
   const calculateTotals = (data) => {
     let totalCal = 0;
     let totalFat = 0;
@@ -112,7 +113,7 @@ function Calorie() {
       <input type="date" value={selectedDate} onChange={handleDateChange} />
       <button onClick={handleNextDay}>&rarr;</button>
 
-      <h2 class="tracker-title">Daily Calorie Tracker</h2>
+      <h2 className="tracker-title">Daily Calorie Tracker</h2>
       <form>
         <table className="calorie-table">
           <caption>Calorie Log Tracker</caption>
@@ -145,8 +146,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Breakfast.length > 0 &&
-              nutritionData.Breakfast.map((food) => (
-                <tr key={food.id}>
+              nutritionData.Breakfast.map((food, index) => (
+                <tr key={index}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -161,7 +162,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Breakfast")}
+                      onClick={() => handleDeleteFood("Breakfast", index)}
                     >
                       X
                     </button>
@@ -181,8 +182,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Lunch.length > 0 &&
-              nutritionData.Lunch.map((food) => (
-                <tr key={food.id}>
+              nutritionData.Lunch.map((food, index) => (
+                <tr key={index}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -197,7 +198,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Lunch")}
+                      onClick={() => handleDeleteFood("Lunch", index)}
                     >
                       X
                     </button>
@@ -217,8 +218,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Dinner.length > 0 &&
-              nutritionData.Dinner.map((food) => (
-                <tr key={food.id}>
+              nutritionData.Dinner.map((food, index) => (
+                <tr key={index}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -233,7 +234,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Dinner")}
+                      onClick={() => handleDeleteFood("Dinner", index)}
                     >
                       X
                     </button>
@@ -253,8 +254,8 @@ function Calorie() {
               </td>
             </tr>
             {nutritionData.Snack.length > 0 &&
-              nutritionData.Snack.map((food) => (
-                <tr key={food.id}>
+              nutritionData.Snack.map((food, index) => (
+                <tr key={index}>
                   <td></td>
                   <td></td>
                   <td>{food.foodItem}</td>
@@ -269,7 +270,7 @@ function Calorie() {
                     <button
                       type="button"
                       className="delete"
-                      onClick={() => handleDeleteFood("Snack")}
+                      onClick={() => handleDeleteFood("Snack", index)}
                     >
                       X
                     </button>
