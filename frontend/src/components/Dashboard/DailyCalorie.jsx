@@ -32,22 +32,41 @@ function Calorie() {
   const [remainingSodium, setRemainingSodium] = useState(dailySodiumGoal);
   const [remainingSugar, setRemainingSugar] = useState(dailySugarGoal);
 
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0,10));
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchNutritionData = async () => {
+  
+  useEffect(() => { 
+    const fetchNutritionData = async (date) => {
       try {
-        const response = await axios.get("http://localhost:3001/meal-data");
+        const response = await axios.get(`http://localhost:3001/meal-data?date=${date}`);
         setNutritionData(response.data);
-
         calculateTotals(response.data);
       } catch (error) {
         console.error("Error fetching nutrition data:", error);
       }
     };
-    fetchNutritionData();
-  }, []);
 
+      if (selectedDate) {
+        fetchNutritionData(selectedDate);
+      }
+    }, [selectedDate]);
+    
+    const handleDateChange = (e) => {
+      setSelectedDate(e.target.value);
+    };
+  
+    const handlePreviousDay = () => {
+      const currentDate = new Date(selectedDate);
+      currentDate.setDate(currentDate.getDate() - 1);
+      setSelectedDate(currentDate.toISOString().substring(0,10));
+      };
+    
+    const handleNextDay = () => {
+      const currentDate = new Date(selectedDate);
+      currentDate.setDate(currentDate.getDate() + 1);
+      setSelectedDate(currentDate.toISOString().substring(0,10));
+      };
+      
   const calculateTotals = (data) => {
     let totalCal = 0;
     let totalFat = 0;
@@ -96,31 +115,14 @@ function Calorie() {
     calculateTotals(updatedNutritionData);
   };
 
-const [selectedDate, setSelectedDate] = useState(new Date().toISOString().substring(0,10));
-
-const handleDateChange = (e) => {
-  setSelectedDate(e.target.value);
-};
-
-const handlePreviousDay = () => {
-  const currentDate = new Date(selectedDate);
-  currentDate.setDate(currentDate.getDate() - 1);
-  setSelectedDate(currentDate.toISOString().substring(0,10));
-  };
-
-const handleNextDay = () => {
-  const currentDate = new Date(selectedDate);
-  currentDate.setDate(currentDate.getDate() + 1);
-  setSelectedDate(currentDate.toISOString().substring(0,10));
-  };
-
   return (
     <div>
       <button onClick={handlePreviousDay}>&larr;</button>
       <input type="date" value={selectedDate} onChange={handleDateChange} />
       <button onClick={handleNextDay}>&rarr;</button>
       
-      <h2>Weekly Calorie Tracker</h2>
+      <h2>Daily Calorie Tracker</h2>
+      <form>
       <table className="calorie-table">
         <caption>Calorie Log Tracker</caption>
         <thead>
@@ -242,7 +244,7 @@ const handleNextDay = () => {
             }
         </tbody>
       </table>
-  
+      </form>
       <table className="calorie-counter">
       <caption>Daily Goal Tracker</caption>
         <tbody>
