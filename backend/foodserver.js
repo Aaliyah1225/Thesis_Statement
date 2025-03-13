@@ -33,7 +33,7 @@ const axiosInstance = axios.create({
 });
 
 app.get("/meal-data", (req, res) => {
-  // Return the current meal data stored on the server
+
   res.json(mealData);
 });
 
