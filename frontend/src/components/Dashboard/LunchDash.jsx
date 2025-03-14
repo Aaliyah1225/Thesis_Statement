@@ -83,6 +83,7 @@ const Lunch = () => {
   return (
     <div className="lunch-form">
       <form onSubmit={handleSearch}>
+      <h2>Lunch Search Engine</h2>
         <input 
           type="search" 
           placeholder="Search Foods..." 

@@ -7,13 +7,17 @@ function Homepage() {
   
     return (
       <div>
-        <h2>NutriFit</h2>
-        <h2>About</h2>
-        <h2>Services</h2>
-        <p>Welcome to NutriFit! The Fitness App for you!</p>
-        <h3>Click Here to check out the Dashboard!</h3>
+        <p>NutriFit</p>
+
+        <h2>Welcome to NutriFit! The Nutrition App for you!</h2>
+
+        <h3>About</h3>
+        <p>Our app is designed to help you keep track of your nutrition goals and help you reach them!</p>
+
+        <h3>Services</h3>
+        <h4>Click Here to check out the Dashboard!</h4>
         <button onClick={() => navigate("/dashboard")}>Main Dashboard</button>
-        <h3>Want to check your BMR? Click on the button below!</h3>
+        <h4>Want to check your BMR? Click on the button below!</h4>
         <button onClick={() => navigate("/calculator")}>BMR Calculator</button>
       </div>
     );

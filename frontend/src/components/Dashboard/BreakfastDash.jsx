@@ -86,6 +86,7 @@ const Breakfast = () => {
   return (
     <div className="breakfast-form">
       <form onSubmit={handleSearch}>
+        <h2>Breakfast Search Engine</h2>
         <input 
           type="search" 
           placeholder="Search Foods..." 
@@ -94,8 +95,8 @@ const Breakfast = () => {
         />
         <button type="submit">Search</button>
       
-      <div className="serving">
-        <label htmlFor="servings">Servings:</label>
+        <div className="serving">
+        <label htmlFor="servings">Servings: </label>
         <input
           type="number"
           id="servings"
@@ -108,7 +109,7 @@ const Breakfast = () => {
       </div>
       
       <div className="serving-unit">
-        <label htmlFor="serving-unit">Serving Unit:</label>
+        <label htmlFor="serving-unit">Serving Unit: </label>
         <select
           id="serving-unit"
           value={servingUnit}
@@ -125,21 +126,21 @@ const Breakfast = () => {
       </div>
 
         <div className="food-selection">
-        <label htmlFor="food-selection">Select a Food</label>
+        <label htmlFor="food-selection">Select a Food: </label>
         <select
         id="food-selection-dropdown"
         aria-label="Select a food item"
         value={selectedFood}
         onChange={(e) => handleFoodSelect(searchResults.find(food => food.food_name === e.target.value))}
         >
-        <option value="select">Select a food</option>
+        <option value="select"></option>
         {searchResults.map((foodItem, index) => (
           <option key={`food-${foodItem.food_name}-${index}`} value={foodItem.food_name}>
             {foodItem.food_name}
           </option>
         ))}
       </select>
-    </div>
+    </div><br />
 
 
       <button onClick={handleAddFood}>Add to Daily Log</button>

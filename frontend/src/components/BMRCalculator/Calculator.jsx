@@ -28,7 +28,7 @@ function BMRCalculator() {
   };
 
   return (
-    <div>
+    <div class="container">
       <h2>Basal Metallic Rate Calculator</h2>
     <form onSubmit={calculateBMR}>
       <div className="input-group">
