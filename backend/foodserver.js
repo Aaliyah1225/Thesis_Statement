@@ -114,6 +114,26 @@ console.log("Received query:", query);
       res.status(500).json({ error: 'Failed to fetch nutritional data' });
     }
   });
+
+  app.delete("/nutrition-delete", (req, res) => {
+    const { mealCategory, index } = req.body;
+    console.log("Received params", req.body);
+
+      if (!mealCategory || index === undefined) {
+      return res.status(400).json({ error: "Meal Category and Index Parameter is required" });
+     }
+
+    try {
+      mealData[mealCategory].splice(index, 1);
+      res.json(mealData);
+    } catch (error) {
+      console.error('Error deleting nutritional data:', error);
+      res.status(500).json({ error: 'Failed to delete nutritional data' });
+    }
+  }
+
+);
+
   
   app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);

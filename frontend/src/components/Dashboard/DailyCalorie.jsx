@@ -107,11 +107,19 @@ function Calorie() {
     setRemainingSugar(dailySugarGoal - totalSugar);
   };
 
-  const handleDeleteFood = (mealCategory, index) => {
-    const updatedNutritionData = { ...nutritionData };
-    updatedNutritionData[mealCategory].splice(index, 1);
-    setNutritionData(updatedNutritionData);
-    calculateTotals(updatedNutritionData);
+  const handleDeleteFood = async (mealCategory, index) => {
+    try {
+      const response = await axios.delete("http://localhost:3001/nutrition-delete", {
+        data: {
+          mealCategory,
+          index,
+        },
+      });
+      setNutritionData(response.data);
+      calculateTotals(response.data);
+        } catch (error) {
+          console.error("Error deleting food item:", error);
+        }
   };
 
   return (
