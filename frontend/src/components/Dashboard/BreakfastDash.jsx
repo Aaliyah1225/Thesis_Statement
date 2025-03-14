@@ -133,7 +133,7 @@ const Breakfast = () => {
         value={selectedFood}
         onChange={(e) => handleFoodSelect(searchResults.find(food => food.food_name === e.target.value))}
         >
-        <option value="select"></option>
+        <option value="select">Select a Food</option>
         {searchResults.map((foodItem, index) => (
           <option key={`food-${foodItem.food_name}-${index}`} value={foodItem.food_name}>
             {foodItem.food_name}

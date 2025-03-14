@@ -33,8 +33,7 @@ function Calorie() {
   const [remainingSugar, setRemainingSugar] = useState(dailySugarGoal);
 
   const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().substring(0, 10)
-  );
+    new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,9 +53,17 @@ function Calorie() {
     setSelectedDate(e.target.value);
   };
 
-  const handlePreviousDay = () => handleDateChange (-1);
+  const handlePreviousDay = () => {
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() - 1);
+    setSelectedDate(currentDate.toISOString().substring(0, 10));
+  };
 
-  const handleNextDay = () => handleDateChange (+1);
+  const handleNextDay = () => {
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+    setSelectedDate(currentDate.toISOString().substring(0, 10));
+  };
 
 
   const calculateTotals = (data) => {
@@ -110,7 +117,7 @@ function Calorie() {
   return (
     <div>
       <button onClick={handlePreviousDay}>&larr;</button>
-      <input type="date" value={selectedDate} onChange={handleDateChange} />
+      <time dateTime={selectedDate}>{new Date(selectedDate).toLocaleDateString()}</time>
       <button onClick={handleNextDay}>&rarr;</button>
 
       <h2 className="tracker-title">Daily Calorie Tracker</h2>

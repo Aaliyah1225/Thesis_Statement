@@ -17,6 +17,7 @@ function Homepage() {
         <h3>Services</h3>
         <h4>Click Here to check out the Dashboard!</h4>
         <button onClick={() => navigate("/dashboard")}>Main Dashboard</button>
+        
         <h4>Want to check your BMR? Click on the button below!</h4>
         <button onClick={() => navigate("/calculator")}>BMR Calculator</button>
       </div>
